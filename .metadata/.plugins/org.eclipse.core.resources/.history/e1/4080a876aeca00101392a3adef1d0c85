@@ -1,0 +1,56 @@
+package com.IES.CM.ServicesImpl;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.Entity.CitizenApplication;
+import com.Entity.PlanMaster;
+import com.Entity.User;
+import com.IES.CM.Dto.citizenDto;
+import com.IES.CM.Services.citizenArService;
+import com.IES.CM.repository.CitizenApplicationRepo;
+import com.IES.CM.repository.PlanMasterRepo;
+import com.IES.CM.repository.UserRepo;
+
+public class citizenArServiceImpl implements citizenArService {
+	@Autowired
+    private CitizenApplicationRepo repo;  // <-- you must have this repository
+
+    @Autowired
+    private PlanMasterRepo planRepo;      // if you need plan details
+
+    @Autowired
+    private UserRepo userRepo;  
+
+	@Override
+	public boolean createApplication(citizenDto cDto) {
+		if(isFromRhodeIsland(cDto.getSsn())) {
+			ModelMapper model=new ModelMapper();
+			CitizenApplication cap =model.map(cDto,CitizenApplication.class);
+			User user = userRepo.findByEmail(cDto.getEmail());
+		    if (user == null) {
+		        throw new RuntimeException("User not found with email: " + cDto.getEmail());
+		    }
+		    cap.setUser(user);
+		    
+		    PlanMaster plan = planRepo.findByPlanName(cDto.getPlanName());
+		    if (plan == null) {
+		        throw new RuntimeException("Plan not found: " + cDto.getPlanName());
+		    }
+		    cap.setPlan(plan);
+		}
+		return false;
+	}
+	
+	public boolean isFromRhodeIsland(long ssnLong) {
+
+	    // Convert long to 9-digit string with leading zeros
+	    String ssn = String.format("%09d", ssnLong);
+
+	    // Extract first 3 digits (area number)
+	    String area = ssn.substring(0, 3);
+
+	    return area.equals("035") || area.equals("036");
+	}
+
+}

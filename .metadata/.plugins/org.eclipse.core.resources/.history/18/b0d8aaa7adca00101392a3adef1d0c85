@@ -1,0 +1,5 @@
+package com.IES.CM.repository;
+
+public class UserRepoextends JpaRepository<User, Integer> {
+    User findByEmail(String email);
+}

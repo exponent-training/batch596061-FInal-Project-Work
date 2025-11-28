@@ -1,0 +1,10 @@
+package com.planServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.planService.PlanServices;
+
+@Service
+public class PlanServicesImpl implements PlanServices {
+
+}

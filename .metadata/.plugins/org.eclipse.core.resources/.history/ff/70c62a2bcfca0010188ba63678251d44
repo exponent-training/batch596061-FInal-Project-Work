@@ -1,0 +1,14 @@
+package com.IES.CM.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.Entity.CitizenApplication;
+import com.Entity.User;
+
+@Repository
+public interface CitizenApplicationRepo extends JpaRepository <CitizenApplication, Integer>{
+
+	CitizenApplication findByUser(User user);
+
+}

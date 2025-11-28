@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ApiGateWay
+  cloud:
+    gateway:
+      routes:
+      - id:
+  main:
+    web-application-type: reactive
+server:
+  port: 9091
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+      

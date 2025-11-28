@@ -1,0 +1,12 @@
+package com.IES.CM.Services;
+
+import com.Entity.CitizenApplication;
+import com.IES.CM.Dto.citizenDto;
+
+public interface citizenArService {
+
+	 boolean createApplication(citizenDto cDto);
+
+	 CitizenApplication getApplication(Integer appNum);
+
+}

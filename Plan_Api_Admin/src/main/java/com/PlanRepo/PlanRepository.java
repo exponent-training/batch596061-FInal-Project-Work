@@ -1,0 +1,11 @@
+package com.PlanRepo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.Entity.PlanMaster;
+
+@Repository
+public interface PlanRepository extends JpaRepository<PlanMaster, Integer> {
+
+}

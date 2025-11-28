@@ -1,0 +1,6 @@
+package com.Enum;
+
+public class ActiveStatus {
+	 Y,
+	    N
+}

@@ -1,0 +1,22 @@
+package com.planServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Dto.PlansDto;
+import com.PlanRepo.PlanRepository;
+import com.planService.PlanServices;
+
+@Service
+public class PlanServicesImpl implements PlanServices {
+	
+	@Autowired
+	private PlanRepository pr;
+
+	@Override
+	public void savePlan(PlansDto plandto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

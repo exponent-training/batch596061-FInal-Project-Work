@@ -1,0 +1,34 @@
+package com.planServiceImpl;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Dto.PlansDto;
+import com.Entity.PlanMaster;
+import com.PlanRepo.PlanRepository;
+import com.planService.PlanServices;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class PlanServicesImpl implements PlanServices {
+	
+	@Autowired
+	private PlanRepository pr;
+
+	@Override
+	public boolean savePlan(PlansDto plandto) {
+		ModelMapper model = new ModelMapper();
+		log.info("planServices dto ::"+ plandto);
+		
+		PlanMaster pm =new PlanMaster();
+		PlanMaster planmaster= model.map(plandto,PlanMaster.class);
+		log.info("planMaster ::"+planmaster);
+		
+		PlanMaster planMaster2=pr.save(planmaster);
+		return planMaster2.getPlanId()!=null;
+	}
+
+}

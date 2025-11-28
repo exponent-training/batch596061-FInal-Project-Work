@@ -1,0 +1,19 @@
+package com.planServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.Dto.PlansDto;
+import com.planService.PlanServices;
+
+@Service
+public class PlanServicesImpl implements PlanServices {
+	
+	
+
+	@Override
+	public void savePlan(PlansDto plandto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

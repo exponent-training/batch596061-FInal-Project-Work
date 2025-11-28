@@ -1,0 +1,27 @@
+package com.IES.CM.ServicesImpl;
+
+import com.IES.CM.Dto.citizenDto;
+import com.IES.CM.Services.citizenArService;
+
+public class citizenArServiceImpl implements citizenArService {
+
+	@Override
+	public boolean createApplication(citizenDto cDto) {
+		if(isFromRhodeIsland(cDto.getSsn())) {
+			
+		}
+		return false;
+	}
+	
+	public boolean isFromRhodeIsland(long ssnLong) {
+
+	    // Convert long to 9-digit string with leading zeros
+	    String ssn = String.format("%09d", ssnLong);
+
+	    // Extract first 3 digits (area number)
+	    String area = ssn.substring(0, 3);
+
+	    return area.equals("035") || area.equals("036");
+	}
+
+}

@@ -1,0 +1,17 @@
+package com.planService;
+
+import java.util.List;
+
+import com.Dto.PlansDto;
+
+public interface PlanServices {
+
+	boolean savePlan(PlansDto plandto);
+
+	List<PlansDto> getPlans();
+
+	PlansDto getplan(int id);
+
+	boolean updatePlan(Integer id, PlansDto dto);
+
+}

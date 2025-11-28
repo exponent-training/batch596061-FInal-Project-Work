@@ -1,0 +1,8 @@
+package com.IES.CM.Controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CitizenApplicationController {
+
+}

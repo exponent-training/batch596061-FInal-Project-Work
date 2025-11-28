@@ -1,0 +1,43 @@
+package com.IES.CM.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.Entity.CitizenApplication;
+import com.IES.CM.Dto.citizenDto;
+import com.IES.CM.Services.citizenArService;
+
+
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@Slf4j
+@RequestMapping("/AR")
+public class CitizenApplicationController {
+	@Autowired
+	private citizenArService cs;
+
+	@PostMapping("/createApp")
+	public ResponseEntity<?> createApplication(@RequestBody citizenDto cDto) {
+		boolean result = cs.createApplication(cDto);
+		if (result)
+			return new ResponseEntity("application created", HttpStatus.OK);
+		else
+			return new ResponseEntity("application is not created", HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+	
+	@GetMapping("/getApp")
+	public ResponseEntity<?> getApplication(@RequestParam Integer appNum ){
+				 CitizenApplication application = cs.getApplication(appNum);
+				 return new ResponseEntity(application, HttpStatus.OK);
+	}
+
+}

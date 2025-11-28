@@ -1,0 +1,9 @@
+package com.planService;
+
+import com.Dto.PlansDto;
+
+public interface PlanServices {
+
+	boolean savePlan(PlansDto plandto);
+
+}

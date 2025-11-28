@@ -1,0 +1,10 @@
+package com.IES.CM.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Entity.CitizenApplication;
+
+
+public interface CitizenApplicationRepo extends JpaRepository <CitizenApplication, Integer>{
+
+}

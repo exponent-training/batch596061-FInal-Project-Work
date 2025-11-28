@@ -1,0 +1,9 @@
+package com.Dto;
+
+import javax.validation.constraints.NotBlank;
+
+public class PlansDto {
+
+	  @NotBlank(message = "Plan name is mandatory")
+	 private String planName;
+}

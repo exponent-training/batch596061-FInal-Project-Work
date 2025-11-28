@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="ApiGateWay"/>
+<aop-project name="AR"/>
+<aop-project name="Auth"/>
+<aop-project name="ServiceRegistry"/>
+<aop-project name="Plan_Api_Admin"/>
+</aop-reference-model>

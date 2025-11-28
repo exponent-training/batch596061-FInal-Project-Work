@@ -1,0 +1,7 @@
+package com.IES.CM.ServicesImpl;
+
+import com.IES.CM.Services.citizenArService;
+
+public class citizenArServiceImpl implements citizenArService {
+
+}

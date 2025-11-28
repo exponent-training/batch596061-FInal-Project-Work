@@ -1,0 +1,12 @@
+package com.IES.CM.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Entity.PlanMaster;
+import com.Entity.User;
+
+public interface PlanMasterRepo extends JpaRepository <PlanMaster, Integer>  {
+
+	public PlanMaster findByPlanName(String planName);
+
+}
