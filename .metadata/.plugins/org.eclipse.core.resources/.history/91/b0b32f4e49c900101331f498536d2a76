@@ -1,0 +1,8 @@
+package com.cf.exception;
+
+public class EmailNotFoundException extends RuntimeException {
+    
+	 public EmailNotMatchException(String message) {
+	        super(message);
+	    }
+}

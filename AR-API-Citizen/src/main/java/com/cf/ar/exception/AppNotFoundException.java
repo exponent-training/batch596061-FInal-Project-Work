@@ -1,0 +1,10 @@
+package com.cf.ar.exception;
+
+
+	public class AppNotFoundException extends RuntimeException {
+	    public AppNotFoundException(String msg) {
+	        super(msg);
+	    }
+	}
+
+

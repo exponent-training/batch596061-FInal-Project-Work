@@ -1,0 +1,12 @@
+package com.cf.ar.repo;
+
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.cf.ar.entity.Citizen;
+
+public interface CitizenRepo extends JpaRepository<Citizen, Integer> {
+
+    boolean existsBySsn(String ssn);
+}
+

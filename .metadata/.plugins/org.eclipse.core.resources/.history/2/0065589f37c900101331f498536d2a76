@@ -1,0 +1,7 @@
+package com.cf.pm.exception;
+
+public class PlanDoesNotExist extends Exception {
+ 
+	 public PlanDoesNotExist(String message) {
+	        super(message);
+}

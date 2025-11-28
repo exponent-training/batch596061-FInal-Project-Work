@@ -1,0 +1,93 @@
+package com.fc.ar.serviceImple;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
+import org.springframework.stereotype.Service;
+
+import com.cf.ar.dto.CitizenDto;
+import com.cf.ar.entity.Citizen;
+import com.cf.ar.entity.Plans;
+import com.cf.ar.exception.UserNotFound;
+import com.cf.ar.repo.CitizenRepo;
+import com.cf.ar.repo.PlanRepo;
+import com.cf.ar.repo.UserRepo;
+import com.cf.ar.service.CitizenService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class CitizenServiceImple implements CitizenService {
+
+	@Autowired
+	private PlanRepo pr;
+
+	@Autowired
+	private CitizenRepo cr;
+
+	@Autowired
+	private UserRepo ur;
+
+	@Override
+	public boolean createApplication(CitizenDto citizendto) {
+
+		log.info("Citizen Service : {}", citizendto);
+
+		String ssn = citizendto.getSsn();
+		String stateName = ssn.startsWith("12") ? "Rhode Island" : "Other State";
+
+		log.info("State based on SSN: {}", stateName);
+
+		if (stateName.equalsIgnoreCase("Rhode Island")) {
+
+			// 1️⃣ Fetch User using ID
+			User user = ur.findById(citizendto.getUserId())
+					.orElseThrow(() -> new UserNotFound("User not found for ID: " + citizendto.getUserId()));
+
+			// 2️⃣ Convert DTO → Entity
+			ModelMapper mapper = new ModelMapper();
+			Citizen ctz = mapper.map(citizendto, Citizen.class);
+
+			// 3️⃣ Set user FK
+			ctz.setUser(user);
+
+			// 4️⃣ Fetch Plan using name
+			Plans plan = pr.findByPlanName(citizendto.getPlanName()).orElseThrow(
+					() -> new PlanNotFoundWithName("Plan Doesn’t Exist with name: " + citizendto.getPlanName()));
+
+			ctz.setPlan(plan);
+
+			// 5️⃣ Save entity
+			cr.save(ctz);
+
+			return true;
+		}
+
+		return false;
+	}
+
+}
+
+	@Override
+	public CitizenDto getApp(Integer appNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CitizenDto> getApps() {
+
+		return null;
+	}
+
+	@Override
+	public CitizenDto getAppWithCitizenId(Integer citizenId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

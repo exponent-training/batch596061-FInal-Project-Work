@@ -1,0 +1,58 @@
+package com.cf.ar.controller;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cf.ar.dto.CitizenDto;
+import com.cf.ar.entity.Citizen;
+import com.cf.ar.entity.User;
+import com.cf.ar.repo.PlanRepo;
+import com.cf.ar.service.CitizenService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@Slf4j
+@RequestMapping("/cf/ar")
+public class CitizenController {
+  
+	 @Autowired
+	    private CitizenService citizenService;
+	 
+	
+
+	    @PostMapping("/create")
+	    @Operation(description = "Citizen created ",summary = "Citizen Creation")
+	    public ResponseEntity<String> createApplication(@Valid @RequestBody CitizenDto citizenDto ) {
+
+	        boolean isCreated = citizenService.createApplication(citizenDto);
+
+	        if (isCreated) {
+	            return new ResponseEntity<>("Application Created", HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>("Application Not Created", HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+	    }
+	    
+	    
+    @GetMapping("/getApp/{appnum}")
+    @Operation(description = "Get Citizen by Id ",summary = "Citizen details by Id")
+	private ResponseEntity<?> getApp(@PathVariable Integer appno) {
+		log.info("Citizen Controller = "+ appno);
+		Citizen  app = CitizenService.getApp(appno);
+		
+		return new ResponseEntity(app,HttpStatus.OK);
+		
+	}
+}

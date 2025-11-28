@@ -1,0 +1,33 @@
+package com.cf.ar.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandling {
+
+    @ExceptionHandler(PlanNotFoundWithName.class)
+    public ResponseEntity<?> handlePlanNotFound(PlanNotFoundWithName ex) {
+        log.warn("Plan does not exist: " + ex.getMessage());
+        return new ResponseEntity<>("Invalid Plan Name: " + ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<?> handleUserNotFound(UserNotFound ex) {
+        log.warn("User does not exist: " + ex.getMessage());
+        return new ResponseEntity<>("Invalid User ID: " + ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(WrongSsnException.class)
+    public ResponseEntity<?> handleWrongSsn(WrongSsnException ex) {
+        log.warn("Wrong SSN Entered: " + ex.getMessage());
+        return new ResponseEntity<>("Invalid SSN: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+}
+

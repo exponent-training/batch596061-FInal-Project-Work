@@ -1,0 +1,84 @@
+package com.cf.pm.controller;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cf.pm.dto.PlanDto;
+import com.cf.pm.dto.UpdatePlanDto;
+import com.cf.pm.service.PlanService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@Slf4j
+@RequestMapping("/cf/plan/admin")
+@Tag(name = "Plans-API")
+public class PlanController {
+	@Autowired
+	private PlanService ps;
+   
+	@PostMapping("/createPlan")
+	@Operation(description = " Plan creation only Admin " ,summary = "Plan Creation" )
+	public ResponseEntity<?> savePlan(@Valid @RequestBody PlanDto plandto) {
+        
+		log.info("PlanController  : " + plandto);
+		
+		boolean savePlan = ps.savePlan(plandto);
+		
+		if(savePlan) {
+			return  new ResponseEntity ("Plan created Successfullly" ,HttpStatus.CREATED);
+			
+		}else {
+			return new ResponseEntity("Plan is not created", HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@GetMapping("/getAllPlans")
+	@Operation(description = "GetAll Plans only Admin",summary = "Get All Plans")
+	public ResponseEntity<?> getAllPlans(){
+	    log.info("PlanController");
+	    
+	    return new ResponseEntity(ps.getPlans(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/getPlan/{planId}")
+	@Operation(description = "Get Single Plan only ", summary = "Get Single Plan")
+	public ResponseEntity<?> getPlan(@PathVariable Integer planId){
+		 
+		log.info("Plan Controller : "+ planId);
+		PlanDto plan = ps.getPlan(planId);
+		return new ResponseEntity(plan,HttpStatus.OK);
+	}
+	
+	@PutMapping("/updatePlan/{planId}")
+	@Operation(summary = "Update Plan", description = "Update an existing plan by ID")
+	public ResponseEntity<?> updatePlanStatus(
+	        @PathVariable Integer planId,
+	        @Valid @RequestBody UpdatePlanDto updateDto) {
+
+	    log.info("Updating status for planId: {} ", planId, updateDto);
+
+	    boolean updated = ps.updatePlan(planId, updateDto);
+
+	    if (updated) {
+	        return new ResponseEntity<>("Plan status updated successfully", HttpStatus.OK);
+	    }
+	    return new ResponseEntity<>("Failed to update plan status", HttpStatus.BAD_REQUEST);
+	}
+	
+
+}

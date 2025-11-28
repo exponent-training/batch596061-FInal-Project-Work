@@ -1,0 +1,73 @@
+package com.cf.pm.entity;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.cf.pm.enums.ActiveStatus;
+
+import lombok.Data;
+
+import lombok.NoArgsConstructor;
+
+
+
+@Entity
+@Table(name = "plans_table")
+@NoArgsConstructor
+@Data
+
+public class Plans {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "plan_id")
+    private Integer planId;
+
+    @NotBlank(message = "Plan name is mandatory")
+    @Size(min = 3, max = 100, message = "Plan name must be between 3 and 100 characters")
+    @Column(name = "plan_name", nullable = false)
+    private String planName;
+
+    @NotNull(message = "Plan start date is required")
+    @Column(name = "plan_start_date")
+    private LocalDate planStartDate;
+
+    @NotNull(message = "Plan end date is required")
+    @Column(name = "plan_end_date")
+    private LocalDate planEndDate;
+
+    @NotNull(message = "Plan status is required (ACTIVE / INACTIVE)")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "activeStatus")
+    private ActiveStatus activeS;
+
+    @Size(max = 255, message = "Comments cannot be more than 255 characters")
+    @Column(name = "comments")
+    private String comments;
+
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = false)
+    private LocalDate createdDate;
+    
+    @UpdateTimestamp
+    @Column(name = "updated_date")
+    private LocalDate updatedDate;
+
+	
+	
+
+}

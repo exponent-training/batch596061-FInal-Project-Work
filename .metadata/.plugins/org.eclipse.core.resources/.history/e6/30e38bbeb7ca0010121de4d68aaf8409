@@ -1,0 +1,12 @@
+package com.cf.ar.repo;
+
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.cf.ar.entity.Plans;
+
+public interface PlanRepo extends JpaRepository<Plans, Integer> {
+
+    boolean existsByPlanName(String planName);
+}
+

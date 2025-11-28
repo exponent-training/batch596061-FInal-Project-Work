@@ -1,0 +1,5 @@
+package com.fc.ar;
+
+public interface CitizenService {
+
+}

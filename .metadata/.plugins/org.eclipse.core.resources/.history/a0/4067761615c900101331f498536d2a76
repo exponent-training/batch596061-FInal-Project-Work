@@ -1,0 +1,5 @@
+package com.cf.enums;
+
+public enum ActiveStatus {
+   Yes,No
+}

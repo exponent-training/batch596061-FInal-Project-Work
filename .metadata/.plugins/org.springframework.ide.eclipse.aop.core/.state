@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="AR-API-Citizen"/>
+<aop-project name="Auth_API"/>
+<aop-project name="Plan-API-Admin"/>
+<aop-project name="CureFyntra"/>
+</aop-reference-model>

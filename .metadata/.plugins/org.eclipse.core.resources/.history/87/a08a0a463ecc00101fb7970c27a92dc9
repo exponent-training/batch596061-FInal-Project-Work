@@ -1,0 +1,53 @@
+package com.cf.ar.dto;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.apache.catalina.User;
+
+import com.cf.ar.entity.Plans;
+
+import lombok.Data;
+
+@Entity
+@Data
+public class CitizenDto {
+   
+	@NotBlank(message = "fullname is required")
+	@Size(min = 3 ,max = 50 , message = "fullname must be between 3 and 50 characters")
+	private String fullName;
+	
+	@NotNull(message = "Date Of Birth is required")
+	@Past(message = "Date of Birth must be in past")
+	private LocalDate dob;
+
+	@NotBlank(message = "Gender is required")
+	@Pattern(regexp = "^(?i)(male|female|other)$", message = "Gender must be Male, Female, or Other")
+
+	private String gender;;
+
+	@NotNull(message = "SSN is required")
+	@Pattern(regexp = "^\\d{9}$", message = "SSN must be exactly 9 digits")
+	
+	private String ssn;
+	
+	@NotBlank(message = "plan name is required")
+	@Size(min = 3 , max = 100 , message = "plan Name  must be between 3 to 50 characters")
+	 
+	private String planName;
+	
+	private Integer userId;
+	
+	
+	
+}
