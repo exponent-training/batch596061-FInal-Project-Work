@@ -6905,3 +6905,395 @@ java.lang.NullPointerException
 	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
 	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2025-11-28 19:43:16.573 -----------------------------------------------
+eclipse.buildId=3.9.14.202009151235-RELEASE-e415
+java.version=1.8.0_202
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
+Framework arguments:  -product org.springsource.sts.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-11-28 19:46:00.230
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.lsp4e [924]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+       org.eclipse.lsp4j [444]
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+              org.eclipse.lsp4j.jsonrpc [925]
+                Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.boot.dash 4 0 2025-11-28 19:46:00.243
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.boot.dash [950]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+    -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+       org.eclipse.lsp4j [444]
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+              org.eclipse.lsp4j.jsonrpc [925]
+                Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+    -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+       org.eclipse.lsp4e [924]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.boot.dash.cf 4 0 2025-11-28 19:46:00.251
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.boot.dash.cf [951]
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+       org.springframework.ide.eclipse.boot.dash [950]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+              org.eclipse.lsp4j [444]
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+                     org.eclipse.lsp4j.jsonrpc [925]
+                       Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+           -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+              org.eclipse.lsp4e [924]
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.cft 4 0 2025-11-28 19:46:00.256
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.cft [963]
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash.cf; bundle-version="3.9.12"
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash.cf; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+       org.springframework.ide.eclipse.boot.dash.cf [951]
+         Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+           -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+              org.springframework.ide.eclipse.boot.dash [950]
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                     org.eclipse.lsp4j [444]
+                       Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                         -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+                            org.eclipse.lsp4j.jsonrpc [925]
+                              Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                       Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                         -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+                  -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+                     org.eclipse.lsp4e [924]
+                       Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+                         -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                       Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+                         -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 4 0 2025-11-28 19:46:00.280
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.tooling.ls.eclipse.commons [991]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4e; bundle-version="0.9.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+       org.eclipse.lsp4e [924]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+              org.eclipse.lsp4j [444]
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+                     org.eclipse.lsp4j.jsonrpc [925]
+                       Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-11-28 19:47:56.737
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Jarvis'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2025-11-28 20:01:55.903
+!MESSAGE Error occured processing 'com.cf.ar.ArApiCitizenApplication'
+!STACK 0
+org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
+	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2128)
+	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.from(AnnotationUtils.java:2095)
+	at org.springframework.core.annotation.AnnotationUtils.getAttributeAliasNames(AnnotationUtils.java:1751)
+	at org.springframework.core.annotation.AnnotationUtils.isSynthesizable(AnnotationUtils.java:1710)
+	at org.springframework.core.annotation.AnnotationUtils.synthesizeAnnotation(AnnotationUtils.java:1493)
+	at org.springframework.core.annotation.AnnotationUtils.synthesizeAnnotationArray(AnnotationUtils.java:1597)
+	at org.springframework.core.annotation.AnnotationUtils.getAnnotations(AnnotationUtils.java:231)
+	at org.springframework.core.type.classreading.AnnotationAttributesReadingVisitor.visitEnd(AnnotationAttributesReadingVisitor.java:76)
+	at org.springframework.asm.ClassReader.readAnnotationValues(ClassReader.java:2020)
+	at org.springframework.asm.ClassReader.accept(ClassReader.java:676)
+	at org.springframework.asm.ClassReader.accept(ClassReader.java:527)
+	at org.springframework.ide.eclipse.core.java.classreading.JdtConnectedMetadataReader.<init>(JdtConnectedMetadataReader.java:45)
+	at org.springframework.ide.eclipse.core.java.classreading.JdtMetadataReaderFactory.getMetadataReader(JdtMetadataReaderFactory.java:53)
+	at org.springframework.ide.eclipse.core.java.classreading.CachingJdtMetadataReaderFactory.getMetadataReader(CachingJdtMetadataReaderFactory.java:38)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansJavaConfig.registerBean(BeansJavaConfig.java:368)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansJavaConfig$2.call(BeansJavaConfig.java:229)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansJavaConfig$2.call(BeansJavaConfig.java:1)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
+	... 22 more
+!SESSION 2025-11-29 10:23:07.089 -----------------------------------------------
+eclipse.buildId=3.9.14.202009151235-RELEASE-e415
+java.version=1.8.0_202
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
+Framework arguments:  -product org.springsource.sts.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-11-29 10:25:48.542
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.lsp4e [924]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+       org.eclipse.lsp4j [444]
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+              org.eclipse.lsp4j.jsonrpc [925]
+                Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.boot.dash 4 0 2025-11-29 10:25:48.560
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.boot.dash [950]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+    -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+       org.eclipse.lsp4j [444]
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+              org.eclipse.lsp4j.jsonrpc [925]
+                Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+         Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+           -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+    -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+       org.eclipse.lsp4e [924]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.boot.dash.cf 4 0 2025-11-29 10:25:48.570
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.boot.dash.cf [951]
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+       org.springframework.ide.eclipse.boot.dash [950]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+              org.eclipse.lsp4j [444]
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+                     org.eclipse.lsp4j.jsonrpc [925]
+                       Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+           -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+              org.eclipse.lsp4e [924]
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.ide.eclipse.cft 4 0 2025-11-29 10:25:48.579
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.ide.eclipse.cft [963]
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash.cf; bundle-version="3.9.12"
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash.cf; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+       org.springframework.ide.eclipse.boot.dash.cf [951]
+         Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+           -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+              org.springframework.ide.eclipse.boot.dash [950]
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4j
+                  -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                     org.eclipse.lsp4j [444]
+                       Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                         -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+                            org.eclipse.lsp4j.jsonrpc [925]
+                              Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                       Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                         -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+                Unresolved requirement: Require-Bundle: org.eclipse.lsp4e
+                  -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+                     org.eclipse.lsp4e [924]
+                       Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+                         -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+                       Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+                         -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+  Unresolved requirement: Require-Bundle: org.springframework.ide.eclipse.boot.dash
+    -> Bundle-SymbolicName: org.springframework.ide.eclipse.boot.dash; bundle-version="3.9.14.202009150957-RELEASE"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 4 0 2025-11-29 10:25:48.582
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.springframework.tooling.ls.eclipse.commons [991]
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4e; bundle-version="0.9.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4e; bundle-version="0.13.3.202008291637"; singleton:="true"
+       org.eclipse.lsp4e [924]
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j; bundle-version="[0.9.0,0.10.0)"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j; bundle-version="0.9.0.v20200229-1009"
+              org.eclipse.lsp4j [444]
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc.json; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc.json; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc,org.eclipse.lsp4j.jsonrpc.messages"
+                     org.eclipse.lsp4j.jsonrpc [925]
+                       Unresolved requirement: Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=11))"
+                Unresolved requirement: Import-Package: org.eclipse.lsp4j.jsonrpc; version="[0.9.0,1.0.0)"
+                  -> Export-Package: org.eclipse.lsp4j.jsonrpc; bundle-symbolic-name="org.eclipse.lsp4j.jsonrpc"; bundle-version="0.24.0.v20250131-1745"; version="0.24.0"; uses:="com.google.gson,org.eclipse.lsp4j.jsonrpc.json,org.eclipse.lsp4j.jsonrpc.messages"
+         Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+           -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+  Unresolved requirement: Require-Bundle: org.eclipse.lsp4j.jsonrpc; bundle-version="0.6.0"
+    -> Bundle-SymbolicName: org.eclipse.lsp4j.jsonrpc; bundle-version="0.24.0.v20250131-1745"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-11-29 10:27:01.090
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Jarvis'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
