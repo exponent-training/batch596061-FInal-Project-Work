@@ -1,5 +1,4 @@
-
-package com.AR_Model;
+package com.IES.DC.Entity;
 
 import java.time.LocalDate;
 
@@ -22,13 +21,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "citizen_apps_tbl")
@@ -36,8 +34,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CitizenApplication {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "app_number")
@@ -49,9 +47,9 @@ public class CitizenApplication {
 	private String fullname;
 
 	@NotNull(message = "Date of Birth is required")
-	@Past(message = "Date of Birth must be in the past")
+//	@Past(message = "Date of Birth must be in the past")
 	@Column(name = "dob", nullable = false)
-	private LocalDate dob;
+	private String dob;
 
 	@NotBlank(message = "Gender is required")
 	@Pattern(regexp = "^(Male|Female|Other)$", message = "Gender must be Male, Female or Other")
@@ -61,28 +59,27 @@ public class CitizenApplication {
 	@NotNull(message = "SSN is required")
 	@Digits(integer = 9, fraction = 0, message = "SSN must be 9 digits")
 	@Column(name = "ssn", nullable = false, unique = true)
-	private String ssn;
+	private Long ssn;
 
 	// ==============================
 	// Relationships
 	// ==============================
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	@NotNull(message = "User must be linked with application")
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_id", nullable = false)
 	@NotNull(message = "Plan must be selected for application")
-	public PlanMaster plan;
+	private PlanMaster plan;
 
-	@CreationTimestamp
 	@Column(name = "created_date", updatable = false)
+	@CreationTimestamp
 	private LocalDate createdDate;
 
-	@UpdateTimestamp
 	@Column(name = "updated_date")
+	@UpdateTimestamp
 	private LocalDate updatedDate;
-
 }

@@ -41,28 +41,14 @@ public class CitizenApplicationDTO {
 	@NotNull(message = "SSN is required")
 	@Digits(integer = 9, fraction = 0, message = "SSN must be 9 digits")
 	@Column(name = "ssn", nullable = false, unique = true)
-	private Long ssn;
-//
-//	// ==============================
-//	// Relationships
-//	// ==============================
-//
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id", nullable = false)
-//	@NotNull(message = "User must be linked with application")
-//	private User user;
-//
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "plan_id", nullable = false)
-//	@NotNull(message = "Plan must be selected for application")
-//	public PlanMaster plan;
-//
-//	@CreationTimestamp
-//	@Column(name = "created_date", updatable = false)
-//	private LocalDate createdDate;
-//
-//	@UpdateTimestamp
-//	@Column(name = "updated_date")
-//	private LocalDate updatedDate;
+	private String ssn;
+	
+
+    @NotNull(message = "User ID is required")
+    private int userId;      // <-- Add this
+
+    @NotNull(message = "Plan ID is required")
+    private int planId;      // <-- Add this
+
 
 }

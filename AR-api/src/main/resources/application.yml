@@ -1,5 +1,5 @@
 server:
-  port: 9100   # your API Gateway port
+  port: 9200   # your API Gateway port
 
 spring:
   application:
