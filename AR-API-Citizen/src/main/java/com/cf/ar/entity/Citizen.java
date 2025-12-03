@@ -33,8 +33,8 @@ public class Citizen {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "citizen_no")
-	private Integer citizenNo;
+	@Column(name = "App_no")
+	private Integer appNo;
 
 	@NotBlank(message = "Fullname is required")
 	@Column(name = "fullname", nullable = false, length = 50)

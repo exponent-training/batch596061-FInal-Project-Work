@@ -1,5 +1,0 @@
-package com.cf.pm.service;
-
-public interface PlanService {
-
-}

@@ -36,9 +36,6 @@ public class SignUpDto {
 	@NotBlank(message = "Password is required")
 	@Size(min = 6, message = "Password must be at least 6 characters")
 	private String pwd;
-	
-	@CreationTimestamp
-	@Column(name = "created_date", updatable = false)
-	private Date createdDate;
+
 	
 }

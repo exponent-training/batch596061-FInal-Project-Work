@@ -88,7 +88,7 @@ public class CitizenServiceImple implements CitizenService {
 
 	    CitizenResponseDto dto = new CitizenResponseDto();
 
-	    dto.setCitizenNo(citizen.getCitizenNo());
+	    dto.setCitizenNo(citizen.getAppNo());
 	    dto.setFullName(citizen.getFullName());
 	    dto.setDob(citizen.getDob());
 	    dto.setGender(citizen.getGender());
@@ -112,7 +112,7 @@ public class CitizenServiceImple implements CitizenService {
 	    for (Citizen citizen : citizens) {
 	        CitizenResponseDto dto = new CitizenResponseDto();
 
-	        dto.setCitizenNo(citizen.getCitizenNo());
+	        dto.setCitizenNo(citizen.getAppNo());
 	        dto.setFullName(citizen.getFullName());
 	        dto.setDob(citizen.getDob()); 
 	        dto.setGender(citizen.getGender());
@@ -138,7 +138,7 @@ public class CitizenServiceImple implements CitizenService {
 
 	    CitizenResponseDto dto = new CitizenResponseDto();
 
-	    dto.setCitizenNo(citizen.getCitizenNo());
+	    dto.setCitizenNo(citizen.getAppNo());
 	    dto.setFullName(citizen.getFullName());
 	    dto.setDob(citizen.getDob());
 	    dto.setGender(citizen.getGender());

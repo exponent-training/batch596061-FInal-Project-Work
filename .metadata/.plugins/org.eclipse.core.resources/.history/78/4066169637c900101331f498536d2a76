@@ -1,5 +1,0 @@
-package com.cf.pm.exception;
-
-public class PlanDoesNotExist {
-
-}
