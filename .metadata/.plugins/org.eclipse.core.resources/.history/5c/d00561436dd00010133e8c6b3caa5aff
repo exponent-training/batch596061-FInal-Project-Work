@@ -1,0 +1,12 @@
+package com.Repository;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Entity.CitizenApplication;
+
+import java.util.List;
+
+public interface CitizenApplicationRepository extends JpaRepository<CitizenApplication, Integer> {
+    List<CitizenApplication> findByUserUserId(Integer userId);
+}

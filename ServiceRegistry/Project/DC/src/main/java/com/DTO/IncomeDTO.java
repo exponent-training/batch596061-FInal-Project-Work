@@ -1,0 +1,25 @@
+package com.DTO;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.validation.constraints.Min;
+import com.Entity.User;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Slf4j
+@Data
+public class IncomeDTO {
+	
+	
+	 @Min(0)
+	    @Column(name = "salary_income", nullable = false)
+	    private Integer salaryIncome;
+
+	    @Min(0)
+	    @Column(name = "property_income", nullable = false)
+	    private Integer propertyIncome;
+}

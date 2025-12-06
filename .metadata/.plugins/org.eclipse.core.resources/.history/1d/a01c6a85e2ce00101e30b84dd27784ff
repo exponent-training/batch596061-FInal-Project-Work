@@ -1,0 +1,112 @@
+package com.ServiceImpl;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.DTO.CitizenAppDTO;
+import com.Entity.CitizenApplication;
+import com.Entity.PlanMaster;
+import com.Entity.User;
+import com.Repository.CitizenApplicationRepository;
+import com.Repository.PlanMasterRepository;
+import com.Repository.UserRepository;
+import com.Service.CitizenAppService;
+
+@Service
+public class CitizenAppServiceImpl implements CitizenAppService {
+
+    @Autowired
+    private CitizenApplicationRepository appRepo;
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private PlanMasterRepository planRepo;
+
+    @Override
+    public boolean createApplication(CitizenAppDTO dto) {
+
+        // Check User
+        User user = userRepo.findById(dto.getUserId()).orElse(null);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        // Check Plan
+        PlanMaster plan = planRepo.findById(dto.getPlanId()).orElse(null);
+        if (plan == null) {
+            throw new RuntimeException("Plan not found");
+        }
+
+        // Create Entity Object
+        CitizenApplication app = new CitizenApplication();
+        app.setFullname(dto.getFullname());
+        app.setDob(dto.getDob());
+        app.setGender(dto.getGender());
+        app.setSsn(dto.getSsn());
+        app.setUser(user);
+        app.setPlan(plan);
+        app.setCreatedDate(LocalDate.now());
+        app.setUpdatedDate(LocalDate.now());
+
+        appRepo.save(app);
+        return true;
+    }
+
+    @Override
+    public CitizenAppDTO getApp(Integer appNum) {
+
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+
+        if (app == null) {
+            return null;
+        }
+
+        return toDto(app);
+    }
+
+    @Override
+    public List<CitizenAppDTO> getApps() {
+        List<CitizenApplication> list = appRepo.findAll();
+
+        List<CitizenAppDTO> dtoList = new java.util.ArrayList<>();
+
+        for (CitizenApplication app : list) {
+            dtoList.add(toDto(app));
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public CitizenAppDTO getAppWithCitizenId(Integer userId) {
+
+        List<CitizenApplication> list = appRepo.findByUserUserId(userId);
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return toDto(list.get(0));
+    }
+
+    // Convert Entity → DTO (Simple Method)
+    public CitizenAppDTO toDto(CitizenApplication app) {
+
+        CitizenAppDTO dto = new CitizenAppDTO();
+
+        dto.setAppNumber(app.getAppNumber());
+        dto.setFullname(app.getFullname());
+        dto.setDob(app.getDob());
+        dto.setGender(app.getGender());
+        dto.setSsn(app.getSsn());
+        dto.setUserId(app.getUser().getUserId());
+        dto.setPlanId(app.getPlan().getPlanId());
+
+        return dto;
+    }
+}

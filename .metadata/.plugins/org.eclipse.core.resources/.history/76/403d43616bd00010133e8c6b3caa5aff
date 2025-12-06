@@ -1,0 +1,21 @@
+package com.DTO;
+
+
+import java.time.LocalDate;
+import javax.validation.constraints.*;
+
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+//CitizenApplicationRequestDTO.java
+public class CitizenApplicationRequestDTO {
+ private String fullname;
+ private LocalDate dob;
+ private String gender;
+ private Long ssn;
+ private Integer userId;
+ private Integer planId;
+}

@@ -1,0 +1,46 @@
+package com.Controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.DTO.CitizenApplicationRequestDTO;
+import com.DTO.CitizenApplicationResponseDTO;
+import com.Service.CitizenApplicationService;
+
+@RestController
+@RequestMapping("/citizen")
+public class CitizenApplicationController {
+
+    @Autowired
+    private CitizenApplicationService service;
+
+    @PostMapping("/create")
+    public ResponseEntity<String> create(@RequestBody CitizenApplicationRequestDTO dto){
+        return service.createApplication(dto) ?
+                ResponseEntity.ok("Application Created") :
+                ResponseEntity.badRequest().body("Failed");
+    }
+
+    @GetMapping("/app/{id}")
+    public ResponseEntity<CitizenApplicationResponseDTO> getApp(@PathVariable Integer id){
+        return ResponseEntity.ok(service.getApp(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CitizenApplicationResponseDTO>> getAll(){
+        return ResponseEntity.ok(service.getApps());
+    }
+
+    @GetMapping("/ssn/{ssn}")
+    public ResponseEntity<CitizenApplicationResponseDTO> getBySsn(@PathVariable Long ssn){
+        return ResponseEntity.ok(service.getAppWithCitizenId(ssn.intValue()));
+    }
+}

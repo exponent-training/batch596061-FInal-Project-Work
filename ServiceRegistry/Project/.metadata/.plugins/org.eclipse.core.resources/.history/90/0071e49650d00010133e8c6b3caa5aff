@@ -1,0 +1,43 @@
+package com.Controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.DTO.PlanDTO;
+import com.Service.PlanService;
+
+@RestController
+@RequestMapping("/plan")
+public class PlanController {
+
+    @Autowired
+    private PlanService planService;
+
+    @PostMapping("/save")
+    public String save(@RequestBody PlanDTO dto) {
+        planService.savePlan(dto);
+        return "Plan Saved Successfully";
+    }
+
+    @GetMapping("/all")
+    public List<PlanDTO> getAll() {
+        return planService.getPlans();
+    }
+
+    @GetMapping("/{id}")
+    public PlanDTO getOne(@PathVariable Integer id) {
+        return planService.getPlan(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public String update(@PathVariable Integer id, @RequestBody PlanDTO dto) {
+        boolean updated = planService.updatePlan(id, dto);
+
+        if (updated)
+            return "Plan Updated Successfully";
+
+        return "Plan Not Found";
+    }
+}

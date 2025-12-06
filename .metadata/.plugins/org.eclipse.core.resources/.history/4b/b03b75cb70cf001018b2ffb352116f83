@@ -1,0 +1,17 @@
+package com.Service;
+
+
+
+import com.DTO.ForgetPasswordDTO;
+import com.DTO.LoginRequestDTO;
+import com.DTO.LoginResposneDTO;
+import com.DTO.SignUpDTO;
+
+public class UserServices {
+
+	    String signUp(SignUpDTO sdtorequest);
+
+	    LoginResposneDTO login(LoginRequestDTO loginRequest);
+
+	    String forgetPassword(ForgetPasswordDTO forgetpasswordDto);
+	}

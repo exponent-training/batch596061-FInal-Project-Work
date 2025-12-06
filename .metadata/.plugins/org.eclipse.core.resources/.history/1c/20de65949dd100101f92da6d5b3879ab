@@ -1,0 +1,8 @@
+package com.Repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface KidsRepo extends JpaRepository<DcKid, Integer> {
+    List<DcKid> findByCitizenApplicationAppNumber(Integer appNum);
+}

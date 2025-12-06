@@ -1,0 +1,29 @@
+package com.Controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class AuthController {
+
+    private final UserService service;
+
+    @PostMapping("/signup")
+    public ResponseEntity<String> signUp(@Valid @RequestBody SignUpDto dto) {
+        return ResponseEntity.ok(service.signUp(dto));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) {
+        return ResponseEntity.ok(service.login(dto));
+    }
+
+    @PostMapping("/forget-password")
+    public ResponseEntity<String> changePassword(@Valid @RequestBody ForgetPasswordDto dto) {
+        return ResponseEntity.ok(service.forgetPassword(dto));
+    }
+}

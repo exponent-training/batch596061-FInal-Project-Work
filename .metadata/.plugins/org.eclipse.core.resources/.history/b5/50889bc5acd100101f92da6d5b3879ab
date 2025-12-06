@@ -1,0 +1,64 @@
+package com.ServiceImpl;
+
+@Service
+public class DataCollectServiceImpl implements DataCollectService {
+
+    @Autowired private DcIncomeRepository incomeRepo;
+    @Autowired private DcEducationRepository eduRepo;
+    @Autowired private DcKidRepository kidRepo;
+    @Autowired private CitizenApplicationRepository appRepo;
+    @Autowired private UserRepository userRepo;
+
+    @Override
+    public boolean saveIncome(IncomeDTO dto, Integer appNum, Integer userId) {
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+        if (app == null) return false;
+
+        DcIncome e = new DcIncome(null,dto.getSalaryIncome(),dto.getPropertyIncome(),app);
+        incomeRepo.save(e);
+        return true;
+    }
+
+    @Override
+    public boolean saveEducation(EducationDTO dto, Integer appNum, Integer userId) {
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+        if (app == null) return false;
+
+        DcEducation e = new DcEducation(null,dto.getHighestDegree(),dto.getGradYear(),dto.getUniName(),app);
+        eduRepo.save(e);
+        return true;
+    }
+
+    @Override
+    public boolean saveKids(KidsDTO dto, Integer appNum, Integer userId) {
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+        if (app == null) return false;
+
+        DcKid e = new DcKid(null,dto.getKidName(),dto.getKidDob(),dto.getKidSsn(),app);
+        kidRepo.save(e);
+        return true;
+    }
+
+    @Override
+    public SummaryDTO getSummaryData(Integer appNum) {
+
+        SummaryDTO sum = new SummaryDTO();
+
+        //income
+        DcIncome income = incomeRepo.findByCitizenApplicationAppNumber(appNum);
+        if (income!=null)
+            sum.setIncomeDetails(new IncomeDTO(income.getSalaryIncome(),income.getPropertyIncome()));
+
+        //education
+        DcEducation edu = eduRepo.findByCitizenApplicationAppNumber(appNum);
+        if (edu!=null)
+            sum.setEducationDetails(new EducationDTO(edu.getHighestDegree(),edu.getGradYear(),edu.getUniName()));
+
+        //kids
+        List<KidsDTO> kids = kidRepo.findByCitizenApplicationAppNumber(appNum)
+                .stream().map(k->new KidsDTO(k.getKidName(),k.getKidDob(),k.getKidSsn())).toList();
+
+        sum.setKidsDetails(kids);
+        return sum;
+    }
+}

@@ -1,0 +1,118 @@
+package com.ServiceImpl;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.DTO.EducationDTO;
+import com.DTO.IncomeDTO;
+import com.DTO.KidsDTO;
+import com.Entity.DcEducation;
+import com.Entity.DcIncome;
+import com.Entity.DcKid;
+import com.Enum.UserRepository;
+import com.Repository.DcEducationRepository;
+import com.Repository.DcIncomeRepository;
+import com.Repository.DcKidRepository;
+import com.Service.DataCollectService;
+import lombok.var;
+
+@Service
+public class DataCollectServiceImpl implements DataCollectService {
+
+    @Autowired
+    private DcIncomeRepository incomeRepo;
+    @Autowired
+    private DcEducationRepository eduRepo;
+    @Autowired
+    private DcKidRepository kidRepo;
+    @Autowired
+    private CitizenApplicationRepository appRepo;
+    @Autowired
+    private UserRepository userRepo;
+
+    @Override
+    public boolean saveIncome(IncomeDTO dto,Integer appNum , Integer userId) {
+        var app = appRepo.findById(appNum).orElse(null);
+        var user = userRepo.findById(userId).orElse(null);
+
+        if(app==null || user==null) return false;
+
+        DcIncome entity = new DcIncome();
+        entity.setSalaryIncome(dto.getSalaryIncome());
+        entity.setPropertyIncome(dto.getPropertyIncome());
+        entity.setCitizenApplication(app);
+
+        incomeRepo.save(entity);
+        return true;
+    }
+
+    @Override
+    public boolean saveEducation(EducationDTO dto,Integer appNum , Integer userId) {
+        var app = appRepo.findById(appNum).orElse(null);
+        var user = userRepo.findById(userId).orElse(null);
+
+        if(app==null || user==null) return false;
+
+        DcEducation entity = new DcEducation();
+        entity.setHighestDegree(dto.getHighestDegree());
+        entity.setGradYear(dto.getGradYear());
+        entity.setUniName(dto.getUniName());
+        entity.setCitizenApplication(app);
+
+        eduRepo.save(entity);
+        return true;
+    }
+
+    @Override
+    public boolean saveKids(KidsDTO dto,Integer appNum , Integer userId) {
+        var app = appRepo.findById(appNum).orElse(null);
+        var user = userRepo.findById(userId).orElse(null);
+
+        if(app==null || user==null) return false;
+
+        DcKid kid = new DcKid();
+        kid.setKidName(dto.getKidName());
+        kid.setKidDob(dto.getKidDob());
+        kid.setKidSsn(dto.getKidSsn());
+        kid.setCitizenApplication(app);
+
+        kidRepo.save(kid);
+        return true;
+    }
+
+    @Override
+    public Summery getSummeryData(Integer appNum) {
+        Summery sum = new Summery();
+
+        var income = incomeRepo.findByCitizenApplicationAppNumber(appNum);
+        if(income!=null){
+            IncomeDTO dto = new IncomeDTO();
+            dto.setSalaryIncome(income.getSalaryIncome());
+            dto.setPropertyIncome(income.getPropertyIncome());
+            sum.setIncomeDetails(dto);
+        }
+
+        var edu = eduRepo.findByCitizenApplicationAppNumber(appNum);
+        if(edu!=null){
+            EducationDTO dto = new EducationDTO();
+            dto.setHighestDegree(edu.getHighestDegree());
+            dto.setGradYear(edu.getGradYear());
+            dto.setUniName(edu.getUniName());
+            sum.setEducationDetails(dto);
+        }
+
+        var kids = kidRepo.findByCitizenApplicationAppNumber(appNum);
+        if(kids!=null){
+            List<KidsDto> list = kids.stream().map(k->{
+                KidsDTO dto = new KidsDTO();
+                dto.setKidName(k.getKidName());
+                dto.setKidDob(k.getKidDob());
+                dto.setKidSsn(k.getKidSsn());
+                return dto;
+            }).toList();
+            sum.setKidsDetails(list);
+        }
+
+        return sum;
+    }
+}

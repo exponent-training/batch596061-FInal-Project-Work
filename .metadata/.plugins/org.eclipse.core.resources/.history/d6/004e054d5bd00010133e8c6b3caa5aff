@@ -1,0 +1,104 @@
+package com.ServiceImpl;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.DTO.PlanDTO;
+import com.Entity.PlanMaster;
+import com.Repository.PlanMasterRepository;
+import com.Service.PlanService;
+
+@Service
+public class PlanServiceImpl implements PlanService {
+
+    @Autowired
+    private PlanMasterRepository repo;
+
+    // -------------------- SAVE PLAN --------------------
+    @Override
+    public boolean savePlan(PlanDTO dto) {
+
+        PlanMaster p = new PlanMaster();
+
+        p.setPlanId(dto.getPlanId());
+        p.setPlanName(dto.getPlanName());
+        p.setPlanStartDate(dto.getPlanStartDate());
+        p.setPlanEndDate(dto.getPlanEndDate());
+        p.setActiveSw(dto.getActiveSw());
+        p.setComments(dto.getComments());
+        p.setCreatedDate(LocalDate.now());
+        p.setUpdatedDate(LocalDate.now());
+
+        repo.save(p);
+        return true;
+    }
+
+    // -------------------- GET ALL PLANS --------------------
+    @Override
+    public List<PlanDTO> getPlans() {
+
+        List<PlanMaster> list = repo.findAll();
+        List<PlanDTO> dtolist = new ArrayList<>();
+
+        for (PlanMaster p : list) {
+
+            PlanDTO dto = new PlanDTO();
+            dto.setPlanId(p.getPlanId());
+            dto.setPlanName(p.getPlanName());
+            dto.setPlanStartDate(p.getPlanStartDate());
+            dto.setPlanEndDate(p.getPlanEndDate());
+            dto.setActiveSw(p.getActiveSw());
+            dto.setComments(p.getComments());
+
+            dtolist.add(dto);
+        }
+
+        return dtolist;
+    }
+
+    // -------------------- GET PLAN BY ID --------------------
+    @Override
+    public PlanDTO getPlan(Integer planId) {
+
+        PlanMaster p = repo.findById(planId).orElse(null);
+
+        if (p == null) {
+            return null;
+        }
+
+        PlanDTO dto = new PlanDTO();
+        dto.setPlanId(p.getPlanId());
+        dto.setPlanName(p.getPlanName());
+        dto.setPlanStartDate(p.getPlanStartDate());
+        dto.setPlanEndDate(p.getPlanEndDate());
+        dto.setActiveSw(p.getActiveSw());
+        dto.setComments(p.getComments());
+
+        return dto;
+    }
+
+    // -------------------- UPDATE PLAN --------------------
+    @Override
+    public boolean updatePlan(Integer planId, PlanDTO dto) {
+
+        PlanMaster p = repo.findById(planId).orElse(null);
+
+        if (p == null) {
+            return false;
+        }
+
+        p.setPlanName(dto.getPlanName());
+        p.setPlanStartDate(dto.getPlanStartDate());
+        p.setPlanEndDate(dto.getPlanEndDate());
+        p.setActiveSw(dto.getActiveSw());
+        p.setComments(dto.getComments());
+        p.setUpdatedDate(LocalDate.now());
+
+        repo.save(p);
+        return true;
+    }
+}

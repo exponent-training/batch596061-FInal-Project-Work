@@ -1,0 +1,36 @@
+package com.Controller;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.DTO.ForgetPasswordDTO;
+import com.DTO.LoginRequestDTO;
+import com.DTO.LoginResponseDTO;
+import com.DTO.SignUpDTO;
+import com.Service.UserService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+public class AuthController {
+
+	@Autowired
+    private  UserService service;
+
+    @PostMapping("/signup")
+    public ResponseEntity<String> signUp(@Valid @RequestBody SignUpDTO dto) {
+        return ResponseEntity.ok(service.signUp(dto));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) {
+        return ResponseEntity.ok(service.login(dto));
+    }
+
+    @PostMapping("/forget-password")
+    public ResponseEntity<String> changePassword(@Valid @RequestBody ForgetPasswordDTO dto) {
+    	return ResponseEntity.ok(service.forgetPassword(dto));
+    }
+}

@@ -1,0 +1,19 @@
+package com.Service;
+
+import com.DTO.EducationDTO;
+import com.DTO.IncomeDTO;
+import com.DTO.KidsDTO;
+import com.DTO.SummeryDTO;
+
+public interface DataCollectService {
+
+	
+	public boolean saveIncome(IncomeDTO income,Integer Appnum , Integer Userid);
+
+	public boolean saveEducation(EducationDTO education,Integer Appnum , Integer Userid);
+
+	public boolean saveKids(KidsDTO kiddto,Integer Appnum , Integer Userid);
+
+	public  SummeryDTO getSummeryData(Integer appNum);
+
+}

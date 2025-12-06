@@ -1,0 +1,12 @@
+package com.Service;
+
+public interface DcService {
+
+    boolean saveIncome(IncomeDto income,Integer appNum , Integer userId);
+
+    boolean saveEducation(EducationDto education,Integer appNum , Integer userId);
+
+    boolean saveKids(KidsDto kidDto,Integer appNum , Integer userId);
+
+    Summery getSummeryData(Integer appNum);
+}

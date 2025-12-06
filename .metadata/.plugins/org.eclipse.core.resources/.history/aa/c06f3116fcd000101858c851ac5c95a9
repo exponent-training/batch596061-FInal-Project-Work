@@ -1,0 +1,13 @@
+package com.Entity;
+
+@Entity
+@Data
+public class PlanMaster {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer planId;
+
+    @Column(nullable=false)
+    private String planName;
+}
+

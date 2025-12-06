@@ -1,0 +1,13 @@
+package com.Repository;
+
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Entity.User;
+
+
+public interface CitizenApplicationRepository extends JpaRepository<com.Entity.CitizenApplication,Integer>{
+
+	Optional<User> findByUser(Optional<User> user);}

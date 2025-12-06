@@ -1,0 +1,61 @@
+package com.DTO;
+
+
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.*;
+import org.apache.catalina.User;
+import com.Entity.CitizenApplication;
+import com.Entity.PlanMaster;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+
+@Entity
+@Table(name = "citizen_apps_tbl")
+@Data
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Slf4j
+public class CitizenApplicationRequestDTO {
+	 @NotBlank(message = "Fullname is required")
+	    @Size(min = 3, max = 100, message = "Fullname must be between 3 and 100 characters")
+	    @Column(name = "fullname", nullable = false, length = 100)
+	    private String fullname;
+
+	    @NotNull(message = "Date of Birth is required")
+	    @Past(message = "Date of Birth must be in the past")
+	    @Column(name = "dob", nullable = false)
+	    private LocalDate dob;
+
+	    @NotBlank(message = "Gender is required")
+	    @Pattern(regexp = "^(Male|Female|Other)$", message = "Gender must be Male, Female or Other")
+	    @Column(name = "gender", nullable = false, length = 10)
+	    private String gender;
+	    
+	    @NotNull(message = "SSN is required")
+	    @Digits(integer = 9, fraction = 0, message = "SSN must be 9 digits")
+	    @Column(name = "ssn", nullable = false, unique = true)
+	    private Long ssn;
+
+	    // ==============================
+	    // Relationships
+	    // ==============================
+
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "user_id", nullable = false)
+	    @NotNull(message = "User must be linked with application")
+	    private User user;
+
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "plan_id", nullable = false)
+	    @NotNull(message = "Plan must be selected for application")
+	    private PlanMaster plan;
+}

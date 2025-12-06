@@ -1,0 +1,12 @@
+package com.Service;
+
+
+public interface UserService {
+
+    String signUp(SignUpDto dto);
+
+    LoginResponseDTO login(LoginRequestDTO request);
+
+    String forgetPassword(ForgetPasswordDto dto);
+}
+

@@ -1,0 +1,14 @@
+package com.Service;
+
+
+// CitizenApplicationService.java
+public interface CitizenApplicationService {
+
+    boolean createApplication(CitizenApplicationRequestDTO dto);
+
+    CitizenApplicationResponseDTO getApp(Integer appNum);
+
+    List<CitizenApplicationResponseDTO> getApps();
+
+    CitizenApplicationResponseDTO getAppWithCitizenId(Integer citizenId);
+}

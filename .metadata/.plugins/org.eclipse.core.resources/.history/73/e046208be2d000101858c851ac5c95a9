@@ -1,0 +1,101 @@
+package com.ServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.Service.DcService;
+
+@Service
+public class DcServiceImpl implements DcService {
+
+    @Autowired
+    private IncomeRepo incomeRepo;
+
+    @Autowired
+    private EducationRepo educationRepo;
+
+    @Autowired
+    private KidsRepo kidsRepo;
+
+    @Autowired
+    private CitizenAppRepo citizenAppRepo;
+
+    @Override
+    public boolean saveIncome(IncomeDto dto,Integer appNum , Integer userId) {
+        CitizenApplication app = citizenAppRepo.findById(appNum).orElse(null);
+        if(app == null) return false;
+
+        DcIncome entity = new DcIncome();
+        entity.setSalaryIncome(dto.getSalaryIncome());
+        entity.setPropertyIncome(dto.getPropertyIncome());
+        entity.setCitizenApplication(app);
+
+        incomeRepo.save(entity);
+        return true;
+    }
+
+    @Override
+    public boolean saveEducation(EducationDto dto,Integer appNum , Integer userId) {
+        CitizenApplication app = citizenAppRepo.findById(appNum).orElse(null);
+        if(app == null) return false;
+
+        DcEducation edu = new DcEducation();
+        edu.setHighestDegree(dto.getHighestDegree());
+        edu.setGradYear(dto.getGradYear());
+        edu.setUniName(dto.getUniName());
+        edu.setCitizenApplication(app);
+
+        educationRepo.save(edu);
+        return true;
+    }
+
+    @Override
+    public boolean saveKids(KidsDto dto,Integer appNum , Integer userId) {
+        CitizenApplication app = citizenAppRepo.findById(appNum).orElse(null);
+        if(app == null) return false;
+
+        DcKid kid = new DcKid();
+        kid.setKidName(dto.getKidName());
+        kid.setKidDob(dto.getKidDob());
+        kid.setKidSsn(dto.getKidSsn());
+        kid.setCitizenApplication(app);
+
+        kidsRepo.save(kid);
+        return true;
+    }
+
+    @Override
+    public Summery getSummeryData(Integer appNum) {
+
+        Summery summary = new Summery();
+
+        incomeRepo.findByCitizenApplicationAppNumber(appNum).ifPresent(income -> {
+            IncomeDto dto = new IncomeDto();
+            dto.setSalaryIncome(income.getSalaryIncome());
+            dto.setPropertyIncome(income.getPropertyIncome());
+            summary.setIncome(dto);
+        });
+
+        educationRepo.findByCitizenApplicationAppNumber(appNum).ifPresent(edu -> {
+            EducationDto dto = new EducationDto();
+            dto.setHighestDegree(edu.getHighestDegree());
+            dto.setGradYear(edu.getGradYear());
+            dto.setUniName(edu.getUniName());
+            summary.setEducation(dto);
+        });
+
+        List<DcKid> kids = kidsRepo.findByCitizenApplicationAppNumber(appNum);
+
+        List<KidsDto> kidDtoList = new ArrayList<>();
+        kids.forEach(k -> {
+            KidsDto dto = new KidsDto();
+            dto.setKidName(k.getKidName());
+            dto.setKidDob(k.getKidDob());
+            dto.setKidSsn(k.getKidSsn());
+            kidDtoList.add(dto);
+        });
+
+        summary.setKids(kidDtoList);
+
+        return summary;
+    }
+}

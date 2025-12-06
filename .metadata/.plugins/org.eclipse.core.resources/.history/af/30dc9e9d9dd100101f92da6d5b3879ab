@@ -1,0 +1,18 @@
+package com.Service;
+
+import com.Entity.EducationDto;
+import com.Entity.IncomeDto;
+import com.Entity.Integer;
+import com.Entity.KidsDto;
+import com.Entity.Summery;
+
+public interface DcService {
+
+	public boolean saveIncome(IncomeDto income,Integer Appnum , Integer Userid);
+
+	public boolean saveEducation(EducationDto education,Integer Appnum , Integer Userid);
+
+	public boolean saveKids(KidsDto kiddto,Integer Appnum , Integer Userid);
+
+	public  Summery getSummeryData(Integer appNum);
+}

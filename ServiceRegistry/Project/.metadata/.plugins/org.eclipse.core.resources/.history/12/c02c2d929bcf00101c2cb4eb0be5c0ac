@@ -1,0 +1,19 @@
+package com.DTO;
+
+import javax.validation.constraints.*;
+import lombok.*;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class LoginRequestDTO {
+
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email required")
+    private String email;
+
+    @NotBlank(message = "Password required")
+    private String pwd;
+}

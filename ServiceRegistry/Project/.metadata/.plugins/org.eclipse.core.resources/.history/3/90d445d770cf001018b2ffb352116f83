@@ -1,0 +1,87 @@
+package com.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.DTO.ForgetPasswordDTO;
+import com.DTO.LoginRequestDTO;
+import com.DTO.LoginResposneDTO;
+import com.DTO.SignUpDTO;
+import com.Entity.User;
+import com.Repository.UserRepository;
+import com.Service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository repo;
+
+    // ------------------- SIGNUP --------------------
+    @Override
+    public String signUp(SignUpDTO dto) {
+
+        User exist = repo.findByEmail(dto.getEmail());
+
+        if (exist != null) {
+            return "Email already exists";
+        }
+
+        User u = new User();
+        u.setName(dto.getName());
+        u.setEmail(dto.getEmail());
+        u.setPhno(dto.getPhno());
+        u.setPwd(dto.getPwd());
+        u.setRole(dto.getRole());
+
+        repo.save(u);
+
+        return "User registered successfully";
+    }
+
+    // ------------------- LOGIN --------------------
+    @Override
+    public LoginResposneDTO login(LoginRequestDTO dto) {
+
+        User u = repo.findByEmail(dto.getEmail());
+
+        if (u == null) {
+            LoginResposneDTO res = new LoginResposneDTO();
+            res.setMessage("Invalid Email");
+            res.setUsername(null);
+            res.setRole(null);
+            return res;
+        }
+
+        if (!u.getPwd().equals(dto.getPwd())) {
+            LoginResposneDTO res = new LoginResposneDTO();
+            res.setMessage("Wrong Password");
+            res.setUsername(null);
+            res.setRole(null);
+            return res;
+        }
+
+        LoginResposneDTO res = new LoginResposneDTO();
+        res.setMessage("Login Successful");
+        res.setUsername(u.getName());
+        res.setRole(u.getRole());
+
+        return res;
+    }
+
+    // ------------------- FORGET PASSWORD --------------------
+    @Override
+    public String forgetPassword(ForgetPasswordDTO dto) {
+
+        User u = repo.findByEmail(dto.getEmail());
+
+        if (u == null) {
+            return "Email not found";
+        }
+
+        u.setPwd(dto.getNewPwd());
+        repo.save(u);
+
+        return "Password updated successfully";
+    }
+}

@@ -1,0 +1,14 @@
+package com.Enum;
+
+public enum PlanMaster {
+
+	 SNAP(2000, true),
+	    CCAP(1500, true),
+	    MEDICAID(0, false),
+	    TANF(2500, true),
+	    WIC(1800, false),
+	    RCA(2200, true);
+
+	    private final Integer incomeLimit;
+	    private final boolean kidsRequired;
+}

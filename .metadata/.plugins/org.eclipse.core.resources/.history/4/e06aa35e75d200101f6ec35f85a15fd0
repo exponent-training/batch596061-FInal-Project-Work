@@ -1,0 +1,101 @@
+package com.ServiceImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.DTO.EducationDTO;
+import com.DTO.IncomeDTO;
+import com.DTO.KidsDTO;
+import com.DTO.SummeryDTO;
+import com.Entity.CitizenApplication;
+import com.Entity.DcEducation;
+import com.Entity.DcIncome;
+import com.Entity.DcKid;
+import com.Entity.User;
+import com.Repository.CitizenApplicationRepository;
+import com.Repository.DcEducationRepository;
+import com.Repository.DcIncomeRepository;
+import com.Repository.DcKidRepository;
+import com.Repository.UserRepository;
+import com.Service.DataCollectService;
+
+@Service
+public class DataCollectServiceImpl implements DataCollectService {
+
+    @Autowired private DcIncomeRepository incomeRepo;
+    @Autowired private DcEducationRepository eduRepo;
+    @Autowired private DcKidRepository kidRepo;
+    @Autowired private CitizenApplicationRepository appRepo;
+    @Autowired private UserRepository ur;
+
+
+    @Override
+    public boolean saveIncome(IncomeDTO income, Integer appNum, Integer userId) {
+		/*
+		 * CitizenApplication app = appRepo.findById(appNum).orElse(null); if(app==null)
+		 * return false;
+		 * 
+		 * DcIncome income = new DcIncome(null, dto.getSalaryIncome(),
+		 * dto.getPropertyIncome(), app); incomeRepo.save(income); return true;
+		 */
+    	
+    	
+    	DcIncome dcIncome = new DcIncome();
+	    dcIncome.setSalaryIncome(income.getSalaryIncome());
+	    dcIncome.setPropertyIncome(income.getPropertyIncome()); 
+		
+		User user = ur.findById(userId)
+		
+		 List<CitizenApplication> list=ctr.findByUser(user).
+				 orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		 
+		 CitizenApplication citizenApp = list.stream().filter(ca -> ca.getAppNumber()==appnum).findFirst().get();
+		 
+		 dcIncome.setCitizenApplication(citizenApp);
+		 
+		DcIncome dcIncome2 = incomeRepo.save(dcIncome);
+		
+		return dcIncome2 !=null;
+    }
+
+    @Override
+    public boolean saveEducation(EducationDTO dto, Integer appNum, Integer userId) {
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+        if(app==null) return false;
+
+        DcEducation edu = new DcEducation(null, dto.getHighestDegree(), dto.getGradYear(), dto.getUniName(), app);
+        eduRepo.save(edu);
+        return true;
+    }
+
+    @Override
+    public boolean saveKids(KidsDTO dto, Integer appNum, Integer userId) {
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+        if(app==null) return false;
+
+        DcKid kid = new DcKid(null, dto.getKidName(), dto.getKidDob(), dto.getKidSsn(), app);
+        kidRepo.save(kid);
+        return true;
+    }
+
+    @Override
+    public SummeryDTO getSummaryData(Integer appNum) {
+
+        SummeryDTO sum = new SummeryDTO();
+
+        DcIncome i = incomeRepo.findByCitizenApplicationAppNumber(appNum);
+        if(i!=null) sum.setIncomeDetails(new IncomeDTO(i.getSalaryIncome(), i.getPropertyIncome()));
+
+        DcEducation e = eduRepo.findByCitizenApplicationAppNumber(appNum);
+        if(e!=null) sum.setEducationDetails(new EducationDTO(e.getHighestDegree(), e.getGradYear(), e.getUniName()));
+
+        List<DcKid> kids = kidRepo.findByCitizenApplicationAppNumber(appNum);
+        sum.setKidsDetails(kids.stream()
+                .map(k -> new KidsDTO(k.getKidName(), k.getKidDob(), k.getKidSsn()))
+                .collect(Collectors.toList())
+        );
+
+        return sum;
+    }
+}

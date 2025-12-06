@@ -1,0 +1,39 @@
+package com.Controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/dc")
+public class DcController {
+
+    @Autowired
+    private DcService service;
+
+    @PostMapping("/income/{appNum}/{userId}")
+    public String saveIncome(@RequestBody IncomeDto dto,
+                             @PathVariable Integer appNum,
+                             @PathVariable Integer userId){
+        return service.saveIncome(dto, appNum, userId) ? "Income Saved" : "Failed";
+    }
+
+    @PostMapping("/education/{appNum}/{userId}")
+    public String saveEducation(@RequestBody EducationDto dto,
+                                @PathVariable Integer appNum,
+                                @PathVariable Integer userId){
+        return service.saveEducation(dto, appNum, userId) ? "Education Saved" : "Failed";
+    }
+
+    @PostMapping("/kids/{appNum}/{userId}")
+    public String saveKids(@RequestBody KidsDto dto,
+                           @PathVariable Integer appNum,
+                           @PathVariable Integer userId){
+        return service.saveKids(dto, appNum, userId) ? "Kid Saved" : "Failed";
+    }
+
+    @GetMapping("/summary/{appNum}")
+    public Summery getSummary(@PathVariable Integer appNum){
+        return service.getSummeryData(appNum);
+    }
+
+}

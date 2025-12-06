@@ -1,0 +1,54 @@
+package com.Controller;
+
+import java.util.List;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.DTO.PlanDTO;
+import com.Service.PlanService;
+
+
+
+@RestController
+@RequestMapping("/api/plans")
+
+public class PlanController {
+
+	@Autowired
+    private  PlanService planService;
+
+    @PostMapping
+    public ResponseEntity<String> savePlan(@RequestBody @Valid PlanDTO dto) {
+        boolean saved = planService.savePlan(dto);
+        return saved ? ResponseEntity.ok("Plan saved") :
+                       ResponseEntity.badRequest().body("Failed to save plan");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlanDTO>> getAllPlans() {
+        return ResponseEntity.ok(planService.getPlans());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlanDTO> getPlan(@PathVariable Integer id) {
+        PlanDTO dto = planService.getPlan(id);
+        return dto != null ? ResponseEntity.ok(dto) :
+                ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updatePlan(@PathVariable Integer id,
+                                             @RequestBody @Valid PlanDTO dto) {
+        boolean updated = planService.updatePlan(id, dto);
+        return updated ? ResponseEntity.ok("Plan updated") :
+                ResponseEntity.badRequest().body("Plan not found");
+    }
+}

@@ -1,0 +1,26 @@
+application: ''
+client: ''
+datasource: ''
+ddl-auto: update
+defaultZone: http://localhost:8761/eureka/
+dialect: org.hibernate.dialect.MySQLDialect
+driver-class-name: com.mysql.jdbc.Driver
+eureka: ''
+fetch-registry: true
+hibernate: ''
+hostname: localhost
+instance: ''
+jpa: ''
+name: Auth
+password: root
+port: 9092
+properties: ''
+register-with-eureka: true
+server: ''
+service-url: ''
+show-sql: true
+spring:
+  application:
+    name: ServiceRegistry
+url: jdbc:mysql://localhost:3306/IES
+username: root

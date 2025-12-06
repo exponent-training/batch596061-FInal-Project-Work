@@ -1,0 +1,66 @@
+package com.ServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+import com.DTO.ForgetPasswordDTO;
+import com.DTO.LoginRequestDTO;
+import com.DTO.LoginResponseDTO;
+import com.DTO.SignUpDTO;
+import com.Entity.User;
+import com.Repository.UserRepository;
+import com.Service.UserService;
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository repo;
+
+    @Override
+    public String signUp(SignUpDTO dto) {
+
+        if (repo.findByEmail(dto.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        User user = new User();
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPhno(dto.getPhno());
+        user.setPwd(dto.getPwd());
+        user.setRole(dto.getRole());
+
+        repo.save(user);
+
+        return "User registered successfully!";
+    }
+
+    @Override
+    public LoginResponseDTO login(LoginRequestDTO req) {
+
+        User user = repo.findByEmail(req.getEmail())
+                .orElseThrow(() -> new RuntimeException("Invalid Email"));
+
+        if (!user.getPwd().equals(req.getPassword())) {
+            throw new RuntimeException("Invalid Password");
+        }
+
+        String token = "dummy"; // later generate JWT
+
+        return new LoginResponseDTO(token, "Login Successful");
+    }
+
+    @Override
+    public String forgetPassword(ForgetPasswordDTO dto) {
+
+        User user = repo.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("Email not found"));
+
+        user.setPwd(dto.getNewPassword());
+
+        repo.save(user);
+
+        return "Password changed successfully!";
+    }
+}

@@ -1,0 +1,29 @@
+package com.DTO;
+
+import lombok.Data;
+
+@Data
+public class IncomeDTO {
+
+	    private Integer salaryIncome;
+	    private Integer propertyIncome;
+	    
+	    
+		public Integer getSalaryIncome() {
+			return salaryIncome;
+		}
+		public void setSalaryIncome(Integer salaryIncome) {
+			this.salaryIncome = salaryIncome;
+		}
+		public Integer getPropertyIncome() {
+			return propertyIncome;
+		}
+		public void setPropertyIncome(Integer propertyIncome) {
+			this.propertyIncome = propertyIncome;
+		}
+		@Override
+		public String toString() {
+			return "IncomeDTO [salaryIncome=" + salaryIncome + ", propertyIncome=" + propertyIncome + "]";
+		}    
+	    
+}

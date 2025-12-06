@@ -1,0 +1,79 @@
+package com.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.DTO.ForgetPasswordDTO;
+import com.DTO.LoginRequestDTO;
+import com.DTO.LoginResponseDTO;
+import com.DTO.SignUpDTO;
+import com.Entity.User;
+import com.Repository.UserRepository;
+import com.Service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository repo;  // simple field injection
+
+    @Override
+    public String signUp(SignUpDTO dto) {
+
+        // Check if email already exists
+        if (repo.findByEmail(dto.getEmail()).isPresent()) {
+            return "Email already exists";
+        }
+
+        // Create new User object
+        User user = new User();
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPhno(dto.getPhno());
+        user.setPwd(dto.getPwd());
+        user.setRole(dto.getRole());
+
+        repo.save(user);
+
+        return "Signup Successfully";
+    }
+
+    @Override
+    public LoginResponseDTO login(LoginRequestDTO req) {
+
+        User user = repo.findByEmail(req.getEmail())
+                .orElse(null);  // return null if email not found
+
+        if (user == null) {
+            return null;  // or you can return a message in DTO
+        }
+
+        if (!user.getPwd().equals(req.getPwd())) {
+            return null; // Invalid password
+        }
+
+        // Populate response DTO
+        LoginResponseDTO res = new LoginResponseDTO();
+        res.setName(user.getName());
+        res.setEmail(user.getEmail());
+        res.setRole(user.getRole());
+
+        return res;
+    }
+
+    @Override
+    public String forgetPassword(ForgetPasswordDTO dto) {
+
+        User user = repo.findByEmail(dto.getEmail())
+                .orElse(null);
+
+        if (user == null) {
+            return "Email not found";
+        }
+
+        user.setPwd(dto.getPwdUpdated());
+        repo.save(user);
+
+        return "Password changed successfully!";
+    }
+}

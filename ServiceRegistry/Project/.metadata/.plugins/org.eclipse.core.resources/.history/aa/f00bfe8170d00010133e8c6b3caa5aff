@@ -1,0 +1,100 @@
+package com.ServiceImpl;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.DTO.CitizenApplicationRequestDTO;
+import com.DTO.CitizenApplicationResponseDTO;
+import com.Entity.CitizenApplication;
+import com.Entity.PlanMaster;
+import com.Repository.CitizenApplicationRepository;
+import com.Service.CitizenApplicationService;
+
+@Service
+public class CitizenAppServiceImpl implements CitizenApplicationService {
+
+    @Autowired
+    private CitizenApplicationRepository repo;
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private PlanMasterRepository planRepo;
+
+    @Override
+    public boolean createApplication(CitizenApplicationRequestDTO dto) {
+
+        if(repo.existsBySsn(dto.getSsn())) {
+            throw new RuntimeException("Application already exists with this SSN");
+        }
+
+        User user = userRepo.findById(dto.getUserId()).orElse(null);
+        if(user == null) throw new RuntimeException("User not found");
+
+        PlanMaster plan = planRepo.findById(dto.getPlanId()).orElse(null);
+        if(plan == null) throw new RuntimeException("Plan not found");
+
+        CitizenApplication app = new CitizenApplication();
+        app.setFullname(dto.getFullname());
+        app.setDob(dto.getDob());
+        app.setGender(dto.getGender());
+        app.setSsn(dto.getSsn());
+        app.setUser(user);
+        app.setPlan(plan);
+        app.setCreatedDate(LocalDate.now());
+
+        repo.save(app);
+        return true;
+    }
+
+    @Override
+    public CitizenApplicationResponseDTO getApp(Integer appNum) {
+
+        CitizenApplication app = repo.findById(appNum).orElse(null);
+
+        if(app == null) throw new RuntimeException("Application not found");
+
+        return convertToResponse(app);
+    }
+
+    @Override
+    public List<CitizenApplicationResponseDTO> getApps() {
+
+        List<CitizenApplication> list = repo.findAll();
+        List<CitizenApplicationResponseDTO> response = new ArrayList<>();
+
+        for(CitizenApplication app : list){
+            response.add(convertToResponse(app));
+        }
+        return response;
+    }
+
+    @Override
+    public CitizenApplicationResponseDTO getAppWithCitizenId(Integer citizenId) {
+
+        CitizenApplication app = repo.findByUser_UserId(citizenId).orElse(null);
+
+        if(app == null) throw new RuntimeException("No Application Found for Citizen");
+
+        return convertToResponse(app);
+    }
+
+    private CitizenApplicationResponseDTO convertToResponse(CitizenApplication app){
+
+        CitizenApplicationResponseDTO dto = new CitizenApplicationResponseDTO();
+
+        dto.setAppNumber(app.getAppNumber());
+        dto.setFullname(app.getFullname());
+        dto.setGender(app.getGender());
+        dto.setDob(app.getDob());
+        dto.setSsn(app.getSsn());
+        dto.setCreatedDate(app.getCreatedDate());
+        dto.setPlanName(app.getPlan().getPlanName());
+        dto.setUserEmail(app.getUser().getEmail());
+
+        return dto;
+    }
+}

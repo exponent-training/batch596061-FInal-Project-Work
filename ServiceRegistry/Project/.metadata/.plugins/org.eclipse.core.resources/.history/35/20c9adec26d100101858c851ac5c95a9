@@ -1,0 +1,48 @@
+package com.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.DTO.CitizenApplicationRequestDTO;
+import com.DTO.CitizenApplicationResponseDTO;
+import com.Service.CitizenApplicationService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/citizen")
+public class CitizenApplicationController {
+
+    @Autowired
+    private CitizenApplicationService service;
+
+    // ---------------- Create Citizen Application ----------------
+    @PostMapping("/create")
+    public ResponseEntity<String> createApplication(@RequestBody CitizenApplicationRequestDTO dto) {
+        boolean isSaved = service.createApplication(dto);
+
+        if (isSaved)
+            return ResponseEntity.ok("Application created successfully");
+        else
+            return ResponseEntity.badRequest().body("Failed to save application");
+    }
+
+    // ---------------- Get Application By Application Number ----------------
+    @GetMapping("/app/{appNum}")
+    public ResponseEntity<CitizenApplicationResponseDTO> getByAppNumber(@PathVariable Integer appNum) {
+        return ResponseEntity.ok(service.getApp(appNum));
+    }
+
+    // ---------------- Get All Applications ----------------
+    @GetMapping("/all")
+    public ResponseEntity<List<CitizenApplicationResponseDTO>> getAllApplications() {
+        return ResponseEntity.ok(service.getApps());
+    }
+
+    // ---------------- Get Application By SSN ----------------
+    @GetMapping("/ssn/{ssn}")
+    public ResponseEntity<CitizenApplicationResponseDTO> getBySSN(@PathVariable Long ssn) {
+        return ResponseEntity.ok(service.getAppWithCitizenId(Math.toIntExact(ssn)));
+    }
+}

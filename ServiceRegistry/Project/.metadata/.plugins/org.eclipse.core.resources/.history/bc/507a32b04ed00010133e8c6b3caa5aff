@@ -1,0 +1,6 @@
+package com.Entity;
+
+public class ActiveStatus {
+
+	  Y, N
+}

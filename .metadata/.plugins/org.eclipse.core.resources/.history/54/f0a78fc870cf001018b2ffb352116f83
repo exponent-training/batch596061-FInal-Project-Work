@@ -1,0 +1,36 @@
+package com.DTO;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+public class ForgetPasswordDTO {
+
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email required")
+    private String email;
+
+    @NotBlank(message = "New password required")
+    private String newPwd;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
+	@Override
+	public String toString() {
+		return "ForgetPasswordDTO [email=" + email + ", newPwd=" + newPwd + "]";
+	}
+}
+

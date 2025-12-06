@@ -1,0 +1,12 @@
+package com.Enum;
+
+public enum ApplicationStatus {
+	
+	CREATED,
+    IN_PROGRESS,
+    DATA_COLLECTED,
+    VERIFIED,
+    APPROVED,
+    REJECTED,
+    CLOSED
+}

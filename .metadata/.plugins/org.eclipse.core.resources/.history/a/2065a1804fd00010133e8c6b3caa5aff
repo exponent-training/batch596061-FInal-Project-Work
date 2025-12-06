@@ -1,0 +1,42 @@
+package com.DTO;
+
+import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import com.Entity.ActiveStatus;
+import com.Entity.PlanMaster;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "plan_master_tbl")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Setter
+@Getter
+public class PlanDTO {
+
+    private Integer planId;
+
+    @NotBlank(message = "Plan name is mandatory")
+    private String planName;
+
+    @NotNull(message = "Plan start date is required")
+    private LocalDate planStartDate;
+
+    @NotNull(message = "Plan end date is required")
+    private LocalDate planEndDate;
+
+    @NotNull(message = "Plan status is required")
+    private ActiveStatus activeSw;
+
+    private String comments;
+
+    private LocalDate createdDate;
+
+    private LocalDate updatedDate;
+}

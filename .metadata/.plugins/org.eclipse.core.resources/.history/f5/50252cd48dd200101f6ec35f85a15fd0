@@ -1,0 +1,112 @@
+package com.ServiceImpl;
+
+
+import java.util.Arrays;
+import java.util.List;
+import javax.validation.Valid;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class DcServiceImpl implements DcService{
+	
+	@Autowired
+	public IncomeRepo ir;
+	
+	@Autowired
+	public EducationRepo ed;
+	
+	@Autowired
+	public ChildRepo ch;
+	
+	@Autowired
+	public UserRepo ur; 
+	
+	@Autowired
+	public CitizenApplicationRepo ctr;
+	
+
+	@Override
+	public boolean saveIncome(@Valid IncomeDto income, Integer appnum, Integer userid) {
+
+		//ModelMapper model = new ModelMapper();
+		DcIncome dcIncome = new DcIncome();
+	    dcIncome.setSalaryIncome(income.getSalaryIncome());
+	    dcIncome.setPropertyIncome(income.getPropertyIncome()); 
+		
+		User user = ur.findById(userid).orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		
+		 List<CitizenApplication> list=ctr.findByUser(user).
+				 orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		 
+		 CitizenApplication citizenApp = list.stream().filter(ca -> ca.getAppNumber()==appnum).findFirst().get();
+		 
+		 dcIncome.setCitizenApplication(citizenApp);
+		 
+		DcIncome dcIncome2 = ir.save(dcIncome);
+		
+		return dcIncome2 !=null;
+		
+	}
+
+	@Override
+	public boolean saveEducation(@Valid EducationDto education, Integer appnum, Integer userid) {
+		
+		ModelMapper model = new ModelMapper();
+		DcEducation dcEdu = model.map(education,DcEducation.class);
+		User user = ur.findById(userid).orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		
+		 List<CitizenApplication> list=ctr.findByUser(user).
+				 orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		 
+		 CitizenApplication citizenApp = list.stream().filter(ca -> ca.getAppNumber()==appnum).findFirst().get();
+		 dcEdu.setCitizenApplication(citizenApp);
+		 
+		 DcEducation save = ed.save(dcEdu);
+		return save !=null;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean saveKids(@Valid KidsDto kidsDto, Integer appnum, Integer userid) {
+		ModelMapper model = new ModelMapper();
+		 DcKids kids = model.map(kidsDto,DcKids.class);
+		User user = ur.findById(userid).orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		
+		 List<CitizenApplication> list=ctr.findByUser(user).
+				 orElseThrow(()-> new UserNotFoundThisId("User not found"));
+		 
+		 CitizenApplication citizenApp = list.stream().filter(ca -> ca.getAppNumber()==appnum).findFirst().get();
+		 kids.setCitizenApplication(citizenApp);
+		 
+		DcKids save = ch.save(kids);
+		return save !=null;
+		
+	}
+
+	@Override
+	public SummeryResponseDto getSummry(Integer appNum) {
+		DcEducation eduDetails = ed.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(eduDetails);
+		DcIncome incomeDetails = ir.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(incomeDetails);
+		DcKids kidsDetails = ch.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(kidsDetails);
+		
+		
+		SummeryResponseDto srd = new SummeryResponseDto();
+		srd.setEducationDetails(Arrays.asList(eduDetails));
+		srd.setIncomeDetails(Arrays.asList(incomeDetails));
+		srd.setKidsDetails(Arrays.asList(kidsDetails));
+		
+		
+		return srd;
+		
+	
+		
+	}	
+
+}

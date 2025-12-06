@@ -1,0 +1,39 @@
+package com.Controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.DTO.CitizenApplicationRequestDTO;
+import com.DTO.CitizenApplicationResponseDTO;
+import com.Service.CitizenApplicationService;
+import java.util.List;
+
+@RestController
+@RequestMapping("/citizen")
+public class CitizenApplicationController {
+
+    @Autowired
+    private CitizenApplicationService service;
+
+    @PostMapping("/create")
+    public String create(@RequestBody CitizenApplicationRequestDTO dto) {
+        service.createApplication(dto);
+        return "Application Saved Successfully!";
+    }
+
+    @GetMapping("/get/{appId}")
+    public CitizenApplicationResponseDTO getByAppId(@PathVariable Integer appId) {
+        return service.getApp(appId);
+    }
+
+    @GetMapping("/all")
+    public List<CitizenApplicationResponseDTO> getAll() {
+        return service.getApps();
+    }
+
+    // ⭐ GET by SSN
+    @GetMapping("/ssn/{ssn}")
+    public CitizenApplicationResponseDTO getBySsn(@PathVariable Long ssn) {
+        return service.getAppBySsn(ssn);
+    }
+}

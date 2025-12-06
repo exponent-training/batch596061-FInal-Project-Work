@@ -1,0 +1,8 @@
+package com.Repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EducationRepo extends JpaRepository<DcEducation, Integer> {
+    Optional<DcEducation> findByCitizenApplicationAppNumber(Integer appNum);
+}

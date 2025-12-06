@@ -1,0 +1,119 @@
+package com.ServiceImpl;
+
+import java.util.Arrays;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.DTO.EducationDTO;
+import com.DTO.IncomeDTO;
+import com.DTO.KidsDTO;
+import com.DTO.SummeryDTO;
+import com.Entity.CitizenApplication;
+import com.Entity.DcEducation;
+import com.Entity.DcIncome;
+import com.Entity.DcKid;
+import com.Entity.User;
+import com.Repository.CitizenApplicationRepository;
+import com.Repository.DcEducationRepository;
+import com.Repository.DcIncomeRepository;
+import com.Repository.DcKidRepository;
+import com.Repository.UserRepository;
+import com.Service.DataCollectService;
+
+@Service
+public class DataCollectServiceImpl implements DataCollectService {
+
+	@Autowired private DcIncomeRepository incomeRepo;
+	@Autowired private DcEducationRepository eduRepo;
+	@Autowired private DcKidRepository kidRepo;
+	@Autowired private CitizenApplicationRepository appRepo;
+	@Autowired private UserRepository userRepo;
+
+	@Override
+	public boolean saveIncome(IncomeDTO income, Integer appNum, Integer userId) {
+
+		DcIncome dcIncome = new DcIncome();
+	    dcIncome.setSalaryIncome(income.getSalaryIncome());
+	    dcIncome.setPropertyIncome(income.getPropertyIncome());
+	    
+		User user = userRepo.findById(userId)
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
+
+		List<CitizenApplication> apps = appRepo.findByUser(user);
+		CitizenApplication app = apps.stream()
+				.filter(a -> a.getAppNumber().equals(appNum))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Application Not Found"));
+		dcIncome.setCitizenApplication(app);
+		 
+		DcIncome dcIncome2 = incomeRepo.save(dcIncome);
+		return incomeRepo.save(dcIncome2) != null;
+	}
+
+	@Override
+	public boolean saveEducation(EducationDTO dto, Integer appNum, Integer userId) {
+		
+		DcEducation dcEducation = new DcEducation();
+	    dcEducation.setGradYear(dto.getGradYear());
+	    dcEducation.setHighestDegree(dto.getHighestDegree());
+	    dcEducation.setUniName(dto.getUniName());
+
+	    User user = userRepo.findById(userId)
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
+
+		List<CitizenApplication> apps = appRepo.findByUser(user);
+		CitizenApplication app = apps.stream()
+				.filter(a -> a.getAppNumber().equals(appNum))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Application Not Found"));
+		
+		dcEducation.setCitizenApplication(app);
+		 
+		 DcEducation save = eduRepo.save(dcEducation);
+		
+		
+		 return eduRepo.save(save) != null;
+		
+	}
+
+	@Override
+	public boolean saveKids(KidsDTO dto, Integer appNum, Integer userId) {
+		DcKid dcKids = new DcKid();
+	    dcKids.setKidDob(dto.getKidDob());
+	    dcKids.setKidName(dto.getKidName());
+	    dcKids.setKidSsn(dto.getKidSsn());
+
+	    User user = userRepo.findById(userId)
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
+	    
+	    List<CitizenApplication> apps = appRepo.findByUser(user);
+		CitizenApplication app = apps.stream()
+				.filter(a -> a.getAppNumber().equals(appNum))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Application Not Found"));
+		
+		dcKids.setCitizenApplication(app);
+		 
+		 DcKid save = kidRepo.save(dcKids);
+		
+		 return kidRepo.save(save) != null;
+	}
+
+	@Override
+	public SummeryDTO getSummaryData(Integer appNum) {
+
+		DcEducation eduDetails = eduRepo.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(eduDetails);
+		DcIncome incomeDetails = incomeRepo.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(incomeDetails);
+		DcKid kidsDetails = kidRepo.findByCitizenApplication_AppNumber(appNum);
+		System.out.println(kidsDetails);
+		
+		
+		SummeryDTO srd = new SummeryDTO();
+		srd.setEducationDetails(Arrays.asList(eduDetails));
+		srd.setIncomeDetails(Arrays.asList(incomeDetails));
+		srd.setKidsdetails(Arrays.asList(kidsDetails));
+		return srd;
+	}
+}

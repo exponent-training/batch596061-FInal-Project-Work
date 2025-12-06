@@ -1,0 +1,18 @@
+package com.Service;
+
+
+
+import java.util.List;
+
+import com.DTO.CitizenAppDTO;
+
+public interface CitizenAppService {
+
+    boolean createApplication(CitizenAppDTO dto);
+
+    CitizenAppDTO getApp(Integer appNum);
+
+    List<CitizenAppDTO> getApps();
+
+    CitizenAppDTO getAppWithCitizenId(Integer citizenId);
+}

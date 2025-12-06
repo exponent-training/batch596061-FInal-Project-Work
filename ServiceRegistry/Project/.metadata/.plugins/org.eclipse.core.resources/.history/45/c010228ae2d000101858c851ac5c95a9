@@ -1,0 +1,141 @@
+package com.ServiceImpl;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.DTO.EducationDTO;
+import com.DTO.IncomeDTO;
+import com.DTO.KidsDTO;
+import com.DTO.SummeryDTO;
+import com.Entity.CitizenApplication;
+import com.Entity.DcEducation;
+import com.Entity.DcIncome;
+import com.Entity.DcKid;
+import com.Repository.CitizenApplicationRepository;
+import com.Repository.DcEducationRepository;
+import com.Repository.DcIncomeRepository;
+import com.Repository.DcKidRepository;
+import com.Service.DataCollectionService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class DataCollectionServiceImpl implements DataCollectionService {
+
+    @Autowired
+    private DcIncomeRepository incomeRepo;
+
+    @Autowired
+    private DcEducationRepository educationRepo;
+
+    @Autowired
+    private DcKidRepository kidRepo;
+
+    @Autowired
+    private CitizenApplicationRepository appRepo;
+
+    // -------------------- SAVE INCOME --------------------
+    @Override
+    public boolean saveIncome(IncomeDTO dto, Integer appNum, Integer userId) {
+
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+
+        if (app == null) {
+            throw new RuntimeException("Invalid App Number");
+        }
+
+        DcIncome income = new DcIncome();
+        income.setSalaryIncome(dto.getSalaryIncome());
+        income.setPropertyIncome(dto.getPropertyIncome());
+        income.setCitizenApplication(app);
+
+        incomeRepo.save(income);
+        return true;
+    }
+
+    // -------------------- SAVE EDUCATION --------------------
+    @Override
+    public boolean saveEducation(EducationDTO dto, Integer appNum, Integer userId) {
+
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+
+        if (app == null) {
+            throw new RuntimeException("Invalid App Number");
+        }
+
+        DcEducation edu = new DcEducation();
+        edu.setHighestDegree(dto.getHighestDegree());
+        edu.setGradYear(dto.getGradYear());
+        edu.setUniName(dto.getUniName());
+        edu.setCitizenApplication(app);
+
+        educationRepo.save(edu);
+        return true;
+    }
+
+    // -------------------- SAVE KIDS --------------------
+    @Override
+    public boolean saveKids(KidsDTO dto, Integer appNum, Integer userId) {
+
+        CitizenApplication app = appRepo.findById(appNum).orElse(null);
+
+        if (app == null) {
+            throw new RuntimeException("Invalid App Number");
+        }
+
+        DcKid kid = new DcKid();
+        kid.setKidName(dto.getKidName());
+        kid.setKidDob(dto.getKidDob());
+        kid.setKidSsn(dto.getKidSsn());
+        kid.setCitizenApplication(app);
+
+        kidRepo.save(kid);
+        return true;
+    }
+
+    // -------------------- GET SUMMARY --------------------
+    @Override
+    public SummeryDTO getSummeryData(Integer appNum) {
+
+        SummeryDTO summary = new SummeryDTO();
+
+        // ---------- Income ----------
+        DcIncome income = incomeRepo.findByCitizenApplication_AppNumber(appNum).orElse(null);
+
+        if (income != null) {
+            IncomeDTO incomeDto = new IncomeDTO();
+            incomeDto.setSalaryIncome(income.getSalaryIncome());
+            incomeDto.setPropertyIncome(income.getPropertyIncome());
+            summary.setIncome(incomeDto);
+        }
+
+        // ---------- Education ----------
+        DcEducation edu = educationRepo.findByCitizenApplication_AppNumber(appNum).orElse(null);
+
+        if (edu != null) {
+            EducationDTO eduDto = new EducationDTO();
+            eduDto.setHighestDegree(edu.getHighestDegree());
+            eduDto.setGradYear(edu.getGradYear());
+            eduDto.setUniName(edu.getUniName());
+            summary.setEducation(eduDto);
+        }
+
+        // ---------- Kids ----------
+        List<DcKid> kidsList = kidRepo.findByCitizenApplication_AppNumber(appNum);
+        List<KidsDTO> kidsDtos = new ArrayList<>();
+
+        for (DcKid k : kidsList) {
+            KidsDTO kidDto = new KidsDTO();
+            kidDto.setKidName(k.getKidName());
+            kidDto.setKidDob(k.getKidDob());
+            kidDto.setKidSsn(k.getKidSsn());
+            kidsDtos.add(kidDto);
+        }
+
+        summary.setKids(kidsDtos);
+
+        return summary;
+    }
+}

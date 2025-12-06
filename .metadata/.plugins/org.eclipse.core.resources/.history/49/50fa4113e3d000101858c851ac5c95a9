@@ -1,0 +1,12 @@
+package com.Repository;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.Entity.DcEducation;
+
+import java.util.Optional;
+
+public interface DcEducationRepository extends JpaRepository<DcEducation, Integer> {
+    Optional<DcEducation> findByCitizenApplication_AppNumber(Integer appNum);
+}
