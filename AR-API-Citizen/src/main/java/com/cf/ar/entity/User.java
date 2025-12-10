@@ -1,6 +1,8 @@
 package com.cf.ar.entity;
 
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -11,19 +13,24 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.cf.ar.enums.UserRole;
+import com.cf.ar.security.CustomUserDetails;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Entity
 @Table(name = "user")
 @Getter
 @Setter
 @Data
-public class User {
+public class User implements CustomUserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +72,51 @@ public class User {
 	@UpdateTimestamp
 	@Column(name = "updated_date")
 	private Date updatedDate;
+    
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		log.debug("getAuthorities()");
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.name().toString());
+		return Collections.singletonList(authority);
+	}
 
+	@Override
+	public boolean isAccountNonExpired() {
+		log.debug("isAccountNonExpired()");
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		log.debug("isAccountNonLocked()");
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		log.debug("isCredentialsNonExpired()");
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		log.debug("isEnabled()");
+		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.pwd;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+	
+	@Override
+	public String getEmail() {
+	    return this.email;
+	}
 
 }

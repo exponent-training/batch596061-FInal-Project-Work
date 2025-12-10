@@ -1,5 +1,0 @@
-package com.cf.ar.exception;
-
-public class GlobalExceptionHandling {
-
-}

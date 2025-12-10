@@ -8,6 +8,7 @@ import com.cf.ar.entity.User;
 	public interface UserRepo extends JpaRepository<User, Integer> {
 
 		Optional<User> findByUserId(Integer user_id);
+		User findByEmail(String email);
 	}
 
 

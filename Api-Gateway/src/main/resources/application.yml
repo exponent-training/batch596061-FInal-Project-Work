@@ -1,0 +1,37 @@
+server:
+  port: 9191
+spring:
+  application:
+    name: Api-Gateway
+
+  cloud:
+    gateway:
+      routes:
+
+        - id: auth-api-route
+          uri: lb://AUTH_API
+          predicates:
+            - Path=/AUTH_API/**
+          filters:
+            - StripPrefix=1
+
+        - id: dc-api-route
+          uri: lb://DC-API
+          predicates:
+            - Path=/DC-API/**
+          filters:
+            - StripPrefix=1
+
+        - id: plan-admin-api-route
+          uri: lb://PLAN-API-ADMIN
+          predicates:
+            - Path=/PLAN-API-ADMIN/**
+          filters:
+            - StripPrefix=1
+
+        - id: citizen-api-route
+          uri: lb://AR-API-CITIZEN
+          predicates:
+            - Path=/AR-API-CITIZEN/**
+          filters:
+            - StripPrefix=1

@@ -1,6 +1,7 @@
 package com.cf.service;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.cf.entity.User;
 import com.cf.enums.UserRole;
 import com.cf.exception.EmailNotFoundException;
 import com.cf.repo.UserRepo;
+import com.cf.security.CustomUserDetails;
 import com.cf.service.AuthService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +25,17 @@ public class AuthServiceImple implements AuthService {
 	@Autowired
 	private UserRepo userRepo;
 
+	@Autowired
+	private JwtService jwtService;
+
 	public String signUp(SignUpDto userdto) {
 
 		log.info("Service Layer Received SignUpDto: {}", userdto);
 
 		ModelMapper um = new ModelMapper();
 		User user = um.map(userdto, User.class);
-		
-		 user.setRole(UserRole.Citizen);
+
+		user.setRole(UserRole.Citizen);
 
 		log.info("after DTO : USER : " + user);
 
@@ -40,35 +45,46 @@ public class AuthServiceImple implements AuthService {
 	}
 
 	@Override
-	public String login(SignInDto sidto) {
-		
-		Optional<User> user = userRepo.findByEmail(sidto.getEmail());
+	public Map<String, Object> login(SignInDto sidto) {
 
-	    if (!user.isPresent()) {
-	        return "Email not registered!";
-	    }
+		Map<String, Object> response = new HashMap<>();
 
-	    User u = user.get();
+		User user = userRepo.findByEmail(sidto.getEmail());
 
-	    if (!u.getPwd().equals(sidto.getPwd())) {
-	        return "Invalid password!";
-	    }
+		if (user == null) {
+			response.put("error", "Email not registered!");
+			return response;
+		}
 
-	    return "Login Successful! Welcome " + u.getName();
+		if (!user.getPwd().equals(sidto.getPwd())) {
+			response.put("error", "Invalid password!");
+			return response;
+		}
+
+		String token = jwtService.generateToken(user);
+
+		response.put("message", "Login Successful");
+		response.put("name", user.getName());
+		response.put("email", user.getEmail());
+		response.put("token", token);
+
+		return response;
 	}
 
 	@Override
 	public boolean resetPassword(String email, String newPassword) {
 
-	    // Step 1: Find user by email
-	    User user = userRepo.findByEmail(email)
-	            .orElseThrow(() -> new EmailNotFoundException("Email not found"));
+		User user = userRepo.findByEmail(email);
 
-	    user.setPwdUpdated(newPassword);
+		if (user == null) {
+			throw new EmailNotFoundException("Email not found");
+		}
 
-	    userRepo.save(user);
+		user.setPwd(newPassword); // or setPwdUpdated(newPassword)
 
-	    return true;
+		userRepo.save(user);
+
+		return true;
 	}
 
 }

@@ -1,5 +1,0 @@
-package com.cf.ar.service;
-
-public interface CitizenService {
-
-}

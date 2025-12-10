@@ -1,9 +1,12 @@
 package com.cf.entity;
 
-
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Collections;
 
 import com.cf.enums.UserRole;
+import com.cf.security.CustomUserDetails;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,19 +23,69 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
+@Table(name = "user")
 @Entity
-public class User {
-   
+public class User implements CustomUserDetails {
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		log.debug("getAuthorities()");
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.name().toString());
+		return Collections.singletonList(authority);
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		log.debug("isAccountNonExpired()");
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		log.debug("isAccountNonLocked()");
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		log.debug("isCredentialsNonExpired()");
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		log.debug("isEnabled()");
+		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.pwd;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+	
+	@Override
+	public String getEmail() {
+	    return this.email;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
@@ -72,6 +126,5 @@ public class User {
 	@UpdateTimestamp
 	@Column(name = "updated_date")
 	private Date updatedDate;
-
 
 }
